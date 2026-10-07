@@ -894,7 +894,7 @@
                         <div class="hidden pt-1">
                             <label class="block text-[11px] text-slate-400 mb-1">Nomor WhatsApp Admin Tujuan (Bisa diganti saat demo ke klien):</label>
                             <div class="flex items-center gap-2">
-                                <input type="text" id="adminWaNumber" value="6281234567890" oninput="recalculateStay()" class="w-full glass-input rounded-lg px-3 py-1.5 text-xs font-mono text-emerald-300">
+                                <input type="text" id="adminWaNumber" value="6285155058577" oninput="recalculateStay()" class="w-full glass-input rounded-lg px-3 py-1.5 text-xs font-mono text-emerald-300">
                             </div>
                         </div>
 
@@ -2345,7 +2345,7 @@
         }
 
         function sendToWhatsApp() {
-            const rawPhone = document.getElementById('adminWaNumber').value.replace(/[^0-9]/g, '') || '6281234567890';
+            const rawPhone = document.getElementById('adminWaNumber').value.replace(/[^0-9]/g, '') || '6285155058577';
             const message = document.getElementById('waMessagePreview').textContent;
             const waUrl = `https://wa.me/${rawPhone}?text=${encodeURIComponent(message)}`;
             window.open(waUrl, '_blank', 'noopener,noreferrer');
