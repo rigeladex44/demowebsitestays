@@ -1,0 +1,2540 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hengkyy Stays Batu — Direct Booking | Demo Produk PT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Kombinasi Font Formal, Jelas & Eksklusif: Spectral (Editorial Formal Serif), Albert Sans (Clean Geometric Sans), & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&family=Spectral:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Albert Sans"', 'sans-serif'],
+                        serif: ['"Spectral"', 'Georgia', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        emerald: {
+                            950: '#04130e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html, body {
+            max-width: 100%;
+            overflow-x: clip;
+            box-sizing: border-box;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-family: 'Albert Sans', sans-serif;
+            font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+            -webkit-font-smoothing: antialiased;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Penyesuaian Tipografi Formal untuk Judul & Angka Harga */
+        .font-serif {
+            font-family: 'Spectral', Georgia, serif;
+            letter-spacing: -0.015em;
+        }
+
+        /* Tabular Numerals agar semua nominal Rupiah & rating sejajar rapi dan tegas */
+        .tabular-nums,
+        #valWeekdayRow,
+        #valWeekendRow,
+        #valExtraGuest,
+        #valAddons,
+        #valDiscount,
+        #valGrandTotal,
+        #valDpAmount,
+        #modalWeekdayPrice,
+        #modalWeekendPrice {
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.01em;
+        }
+
+        /* Clean White & Soft Pearl Ambient Aurora */
+        .ambient-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            background: radial-gradient(circle at 12% 10%, rgba(16, 185, 129, 0.08), transparent 40%),
+                        radial-gradient(circle at 88% 20%, rgba(20, 184, 166, 0.07), transparent 45%),
+                        radial-gradient(circle at 50% 90%, rgba(245, 158, 11, 0.05), transparent 50%),
+                        #f8fafc;
+        }
+
+        /* Clean White Frosted Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 12px 36px -8px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 8px 26px -6px rgba(15, 23, 42, 0.06);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(16, 185, 129, 0.45);
+            box-shadow: 0 20px 40px -12px rgba(5, 150, 105, 0.14);
+        }
+
+        .glass-input {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #0f172a;
+            transition: all 0.2s ease;
+        }
+
+        .glass-input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+            background: #ffffff;
+        }
+
+        /* Universal Clean Light Theme Overrides for High Readability */
+        .light-theme .text-white {
+            color: #0f172a !important;
+        }
+        .light-theme .text-slate-200,
+        .light-theme .text-slate-200\/90,
+        .light-theme .text-slate-300 {
+            color: #334155 !important;
+        }
+        .light-theme .text-slate-400 {
+            color: #64748b !important;
+        }
+        .light-theme .text-emerald-300,
+        .light-theme .text-emerald-300\/90,
+        .light-theme .text-emerald-200 {
+            color: #047857 !important;
+        }
+        .light-theme .text-amber-300,
+        .light-theme .text-amber-200 {
+            color: #b45309 !important;
+        }
+        .light-theme .text-teal-300 {
+            color: #0f766e !important;
+        }
+        .light-theme .bg-white\/5 {
+            background-color: #f1f5f9 !important;
+        }
+        .light-theme .bg-white\/10,
+        .light-theme .bg-white\/15 {
+            background-color: #e2e8f0 !important;
+        }
+        .light-theme .border-white\/5,
+        .light-theme .border-white\/10,
+        .light-theme .border-white\/15,
+        .light-theme .border-white\/20 {
+            border-color: #e2e8f0 !important;
+        }
+        .light-theme .bg-slate-950\/50,
+        .light-theme .bg-slate-950\/60,
+        .light-theme .bg-slate-950\/65,
+        .light-theme .bg-slate-950\/70,
+        .light-theme .bg-slate-950\/75,
+        .light-theme .bg-slate-950\/80,
+        .light-theme .bg-slate-900 {
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
+        }
+        .light-theme .bg-emerald-950\/60,
+        .light-theme .bg-emerald-950\/70,
+        .light-theme .bg-emerald-950\/75 {
+            background-color: #ecfdf5 !important;
+        }
+        .light-theme .bg-amber-950\/50 {
+            background-color: #fffbeb !important;
+        }
+
+        /* Keep Text Contrasted on Image Overlays */
+        .light-theme .img-overlay-dark .text-white {
+            color: #ffffff !important;
+        }
+        .light-theme .img-overlay-dark .text-slate-200 {
+            color: #f1f5f9 !important;
+        }
+        .light-theme .img-overlay-dark .text-emerald-300 {
+            color: #6ee7b7 !important;
+        }
+
+        /* Fix iOS Safari / Mobile WebKit Date Input Overflow & Centering Bug */
+        input[type="date"] {
+            -webkit-appearance: none;
+            appearance: none;
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+            text-align: left;
+            color: #0f172a;
+        }
+
+        input[type="date"]::-webkit-date-and-time-value {
+            text-align: left;
+            margin: 0;
+        }
+
+        /* Custom Date Input Color Scheme for Clean Light Theme */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10b981;
+        }
+
+        /* Hide scrollbar for category pills */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .snap-x-mandatory {
+            scroll-snap-type: x mandatory;
+        }
+        .snap-start-item {
+            scroll-snap-align: start;
+        }
+    </style>
+</head>
+<body class="light-theme antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- Ambient Glass Background -->
+    <div class="ambient-bg"></div>
+
+    <!-- Wrapper Fixed Stay-on-Top Tanpa Background (Hanya Card Header & Badge Pencarian yang Melayang) -->
+    <div id="fixedTopHeaderGroup" class="fixed top-0 left-0 right-0 z-40 pointer-events-none">
+        <!-- 1. Top Demo Presentation Bar -->
+        <div class="pointer-events-auto bg-white/90 backdrop-blur-md border-b border-slate-200/70 px-3 sm:px-6 py-1.5 text-[11px] sm:text-xs">
+            <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2 min-w-0">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-700 border border-emerald-500/30 font-semibold truncate">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                        <span class="truncate">DEMO PRODUK #1 <span class="hidden sm:inline">(SINGLE-HOST MULTI-UNIT)</span></span>
+                    </span>
+                    <div class="hidden sm:flex items-center gap-1.5 bg-slate-100 border border-slate-200 rounded-lg px-2.5 py-0.5 font-mono text-[11px] text-slate-600 truncate">
+                        <i class="ph-fill ph-lock-key text-emerald-600"></i>
+                        <span>https://</span><span class="text-emerald-700 font-semibold" id="subdomainText">demo-stay.adexidn.com</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 shrink-0">
+                    <span class="hidden xl:inline text-slate-500">Konsep: <strong class="text-slate-800">1 Owner • Multi-Unit 1 Kota • 0% Komisi OTA</strong></span>
+                    <button onclick="openPitchModal()" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 border border-amber-500/30 font-semibold transition">
+                        <i class="ph-bold ph-presentation-chart"></i>
+                        <span>Info Pitching PT</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Floating Glass Navbar + Floating Pill "Mulai pencarian" Tanpa Background Pembungkus -->
+        <header class="px-3 sm:px-6 pt-2.5 pb-1 w-full max-w-full">
+            <nav class="pointer-events-auto max-w-7xl mx-auto glass-panel rounded-2xl px-3.5 sm:px-5 py-2 sm:py-2.5 shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
+                <div class="flex items-center justify-between gap-2 sm:gap-3 min-w-0">
+                    <!-- Brand / Host Collection Identity -->
+                    <a href="#" class="flex items-center gap-2.5 sm:gap-3 group min-w-0">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-emerald-400/30 to-teal-600/30 border border-emerald-500/30 flex items-center justify-center shadow-inner shrink-0">
+                            <i class="ph-duotone ph-house-line text-xl sm:text-2xl text-emerald-700 group-hover:scale-110 transition"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <span class="font-serif text-base sm:text-xl font-bold tracking-tight text-slate-900 leading-none block truncate" id="navHostBrand">HENGKYY STAYS</span>
+                            <span class="text-[10px] font-medium text-emerald-700 block mt-0.5 truncate" id="navCityLabel">Manajemen Villa • 6 Unit Kota Batu</span>
+                        </div>
+                    </a>
+
+                    <!-- Center Airbnb-Style Interactive Search Pill (Desktop lg+) -->
+                    <div onclick="openQuickFilterModal('lokasi')"
+                         class="hidden lg:flex items-center bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-emerald-500/40 rounded-full py-1.5 pl-5 pr-2 gap-4 text-xs cursor-pointer transition shadow-sm shrink-0">
+                        <div class="flex items-center gap-1.5 font-semibold text-slate-900">
+                            <i class="ph-fill ph-map-pin text-emerald-600 text-sm"></i>
+                            <span id="pillCityText">Semua Area Batu</span>
+                        </div>
+                        <span class="h-4 w-px bg-slate-200"></span>
+                        <div class="text-slate-700 font-medium" id="pillDateSummary">
+                            2 Malam
+                        </div>
+                        <span class="h-4 w-px bg-slate-200"></span>
+                        <div class="text-slate-600" id="pillGuestSummary">
+                            4 Tamu
+                        </div>
+                        <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center">
+                            <i class="ph-bold ph-magnifying-glass text-xs"></i>
+                        </div>
+                    </div>
+
+                    <!-- Right Menu & Wishlist Counter -->
+                    <div class="flex items-center gap-2 shrink-0">
+                        <button onclick="filterWishlistOnly()" id="wishlistNavBtn" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-slate-200 transition">
+                            <i class="ph-fill ph-heart text-rose-500 text-sm"></i>
+                            <span class="hidden md:inline">Favorit</span>
+                            <span id="wishlistCountBadge" class="px-1.5 py-0.2 rounded-full bg-rose-500/15 text-rose-600 text-[10px] font-bold">2</span>
+                        </button>
+
+                        <a href="#kalkulator" class="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-sm transition">
+                            <i class="ph-bold ph-whatsapp-logo text-base"></i>
+                            <span class="hidden sm:inline">Booking WA</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Pill Pencarian Ala Airbnb (Melayang Mandiri Tanpa Background Pembungkus) -->
+            <div class="max-w-xs sm:max-w-sm mx-auto pt-2 px-2">
+                <button type="button" onclick="openQuickFilterModal('lokasi')"
+                        class="pointer-events-auto w-full py-2.5 px-5 rounded-full bg-white/95 backdrop-blur-md hover:bg-white border border-slate-200/95 shadow-[0_8px_24px_rgba(15,23,42,0.12)] flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold text-slate-900 transition active:scale-[0.98]">
+                    <i class="ph-bold ph-magnifying-glass text-slate-800 text-sm sm:text-base"></i>
+                    <span id="floatingSearchPillLabel">Mulai pencarian</span>
+                </button>
+            </div>
+        </header>
+    </div>
+
+    <!-- Spacer agar posisi awal Hero pas di bawah elemen floating -->
+    <div class="h-[146px] sm:h-[154px]"></div>
+
+    <!-- Hero Section: Clean, Lega & Fokus pada Visual (Tanpa Kotak Form Raksasa karena sudah diwakili Pill Pencarian) -->
+    <section class="relative px-3 sm:px-6 pt-2 sm:pt-4 pb-4 sm:pb-7">
+        <div class="max-w-7xl mx-auto">
+            <!-- Hero Glass Container -->
+            <div class="relative rounded-3xl overflow-hidden border border-slate-200/80 shadow-lg p-5 sm:p-8 lg:p-12">
+                <!-- Background Image -->
+                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1800&q=85"
+                     onerror="this.src='https://placehold.co/1600x900/e2e8f0/0f172a?text=Koleksi+Villa+%26+Glamping+Satu+Owner'"
+                     alt="Luxury Villa Collection in One City"
+                     class="absolute inset-0 w-full h-full object-cover object-center brightness-95 -z-20">
+
+                <!-- Clean Bright White Gradient Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-white via-white/85 to-white/40 -z-10"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/25 -z-10"></div>
+
+                <!-- Single Minimalist Verification Pill -->
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-[11px] sm:text-xs font-medium text-slate-700">
+                    <span class="flex items-center gap-1 text-slate-900 font-semibold"><i class="ph-fill ph-star text-amber-500"></i> 4.97</span>
+                    <span class="text-slate-300">•</span>
+                    <span class="text-emerald-700 font-semibold">Official Direct Booking (0% Komisi)</span>
+                </div>
+
+                <!-- Clean Headline + Quick Summary Trigger -->
+                <div class="space-y-4 max-w-2xl mt-4 sm:mt-6">
+                    <div class="space-y-2">
+                        <h1 class="font-serif text-2xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 leading-[1.15] tracking-tight">
+                            Koleksi Villa &amp; Cabin Privat di <span class="italic font-medium text-emerald-700">Kota Wisata Batu.</span>
+                        </h1>
+                        <p class="text-xs sm:text-sm text-slate-600 max-w-xl leading-relaxed">
+                            6 unit eksklusif dikelola satu manajemen Superhost. Ketuk tombol pencarian di atas untuk memilih lokasi area, tanggal menginap, dan jumlah tamu.
+                        </p>
+                    </div>
+
+                    <!-- Ringkasan Status Aktif yang Tipis & Elegan -->
+                    <div class="flex flex-wrap items-center gap-2 pt-1">
+                        <button type="button" onclick="openQuickFilterModal('lokasi')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/90 hover:bg-white border border-slate-200/90 text-xs font-medium text-slate-700 shadow-sm transition">
+                            <i class="ph-fill ph-map-pin text-emerald-600"></i>
+                            <span id="heroQuickAreaText" class="font-semibold text-slate-900">Semua Area Batu</span>
+                            <span class="text-slate-300">•</span>
+                            <span id="heroQuickDateText" class="text-emerald-700 font-semibold">2 Malam</span>
+                            <span class="text-slate-300">•</span>
+                            <span id="heroQuickGuestText">4 Tamu</span>
+                        </button>
+                    </div>
+
+                    <!-- Hidden inputs for compatibility with existing sync functions -->
+                    <div class="hidden">
+                        <select id="heroAreaSelect"><option value="all">Semua</option></select>
+                        <input type="date" id="heroCheckIn">
+                        <input type="date" id="heroCheckOut">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Katalog Unit Gaya Airbnb (Category Icon Strip + Total Stay Price Switch + Property Cards) -->
+    <section id="katalog" class="px-3 sm:px-6 py-6 sm:py-10 lg:py-12 w-full max-w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto space-y-5 min-w-0">
+
+            <!-- Airbnb Category Strip + Price Mode Switcher -->
+            <div class="glass-panel rounded-2xl p-3 sm:p-4 flex flex-col lg:flex-row lg:items-center justify-between gap-3 min-w-0 overflow-hidden">
+                <!-- Horizontal Scrollable Airbnb Categories (Swipeable on Mobile) -->
+                <div class="flex items-center gap-2 overflow-x-auto no-scrollbar snap-x-mandatory pb-1 lg:pb-0 w-full lg:w-auto min-w-0">
+                    <button onclick="filterCategory('all')" id="cat-all" class="cat-pill snap-start-item shrink-0 flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-emerald-600 text-white font-semibold text-xs transition">
+                        <i class="ph-fill ph-squares-four text-sm"></i>
+                        <span>Semua (6)</span>
+                    </button>
+                    <button onclick="filterCategory('Private Pool')" id="cat-Private Pool" class="cat-pill snap-start-item shrink-0 flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-medium transition">
+                        <i class="ph-duotone ph-swimming-pool text-sm text-emerald-300"></i>
+                        <span>Private Pool</span>
+                    </button>
+                    <button onclick="filterCategory('Cabin & Glamping')" id="cat-Cabin & Glamping" class="cat-pill snap-start-item shrink-0 flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-medium transition">
+                        <i class="ph-duotone ph-campfire text-sm text-amber-300"></i>
+                        <span>Glamping</span>
+                    </button>
+                    <button onclick="filterCategory('Large Group')" id="cat-Large Group" class="cat-pill snap-start-item shrink-0 flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-medium transition">
+                        <i class="ph-duotone ph-users-three text-sm text-teal-300"></i>
+                        <span>Rombongan</span>
+                    </button>
+                    <button onclick="filterCategory('Workcation')" id="cat-Workcation" class="cat-pill snap-start-item shrink-0 flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-medium transition">
+                        <i class="ph-duotone ph-wifi-high text-sm text-emerald-300"></i>
+                        <span>Workcation</span>
+                    </button>
+                    <button onclick="filterCategory('Plus Jeep Trip')" id="cat-Plus Jeep Trip" class="cat-pill snap-start-item shrink-0 flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-medium transition">
+                        <i class="ph-duotone ph-jeep text-sm text-amber-300"></i>
+                        <span>Paket Jeep</span>
+                    </button>
+                </div>
+
+                <!-- Right Controls: Airbnb "Display Total Price" Toggle & Rate View -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between lg:justify-end gap-2.5 border-t lg:border-t-0 pt-2.5 lg:pt-0 border-white/10">
+                    <!-- Airbnb-like Total Stay Toggle -->
+                    <label class="flex items-center justify-between sm:justify-start gap-3 px-3 py-1.5 rounded-xl bg-slate-950/70 border border-white/15 cursor-pointer select-none">
+                        <div class="text-xs">
+                            <span class="font-semibold text-white block">Tampilkan Total Menginap</span>
+                            <span class="text-[10px] text-emerald-300" id="toggleStaySubtitle">Sesuai tanggal terpilih</span>
+                        </div>
+                        <input type="checkbox" id="showTotalStayToggle" onchange="renderCatalog()" class="sr-only peer">
+                        <div class="w-9 h-5 bg-white/15 peer-checked:bg-emerald-600 rounded-full relative transition shrink-0 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:w-4 after:h-4 after:rounded-full after:transition peer-checked:after:translate-x-4"></div>
+                    </label>
+
+                    <!-- Rate Mode Switcher -->
+                    <div class="bg-slate-950/70 p-1 rounded-xl border border-white/10 grid grid-cols-3 sm:flex items-center gap-1 text-[11px] font-medium">
+                        <button onclick="setRatePreview('both')" id="rate-both" class="px-2.5 py-1 rounded-lg bg-white/15 text-white font-semibold transition text-center">Semua</button>
+                        <button onclick="setRatePreview('weekday')" id="rate-weekday" class="px-2.5 py-1 rounded-lg text-emerald-300 hover:bg-white/5 transition text-center">Weekday</button>
+                        <button onclick="setRatePreview('weekend')" id="rate-weekend" class="px-2.5 py-1 rounded-lg text-amber-300 hover:bg-white/5 transition text-center">Weekend</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid Katalog Unit (1 Col Mobile, 2 Col Tablet, 3 Col Desktop) -->
+            <div id="unitCatalogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                <!-- Dirender dinamis oleh JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Seksi Khas Airbnb: Profil Single-Owner Superhost & Sebaran Unit di 1 Kota -->
+    <section id="host-profile" class="px-3 sm:px-6 py-10 lg:py-14 w-full max-w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto min-w-0">
+            <div class="glass-panel rounded-3xl p-5 sm:p-10 border border-white/15 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-w-0 overflow-hidden">
+                <!-- Left: Airbnb Superhost Badge Card (5 Cols) -->
+                <div class="lg:col-span-5 glass-card rounded-3xl p-5 sm:p-6 border border-emerald-400/30 space-y-5 min-w-0">
+                    <div class="flex items-center gap-4">
+                        <div class="relative shrink-0">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+                                 onerror="this.src='https://placehold.co/200x200/064e3b/a7f3d0?text=Host'"
+                                 alt="Muhammad Hengky"
+                                 class="w-20 h-20 rounded-full object-cover border-2 border-emerald-400 shadow-lg">
+                            <span class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shadow" title="Superhost Terverifikasi">
+                                <i class="ph-fill ph-medal text-base"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold uppercase tracking-wider">
+                                Pemilik &amp; Pengelola Langsung
+                            </span>
+                            <h3 class="font-serif text-2xl font-bold text-white mt-1">Muhammad Hengky</h3>
+                            <p class="text-xs text-slate-300">Manajemen Villa di Kota Batu sejak 2019</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 pt-3 border-t border-white/10 text-center">
+                        <div class="p-2.5 rounded-xl bg-white/5">
+                            <div class="text-lg font-bold text-white">6 Unit</div>
+                            <div class="text-[10px] text-slate-400">Milik Sendiri di Batu</div>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-white/5">
+                            <div class="text-lg font-bold text-amber-300">4.97 ★</div>
+                            <div class="text-[10px] text-slate-400">640+ Review Asli</div>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-white/5">
+                            <div class="text-lg font-bold text-emerald-300">100%</div>
+                            <div class="text-[10px] text-slate-400">Respon WA &lt; 5 Menit</div>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        "Kami membangun website resmi ini agar tamu langganan kami bisa melihat seluruh koleksi villa &amp; cabin kami di Kota Batu dalam satu halaman, menghitung tarif Weekday/Weekend secara transparan, dan memesan langsung via WhatsApp **tanpa biaya layanan aplikasi 15–18%**."
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 text-[11px] text-slate-300">
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10"><i class="ph-fill ph-check-circle text-emerald-400"></i> Identitas Terverifikasi</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10"><i class="ph-fill ph-sparkle text-emerald-400"></i> Standar Linen Hotel Bintang 5</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10"><i class="ph-fill ph-key text-emerald-400"></i> Self Check-In Smartlock</span>
+                    </div>
+                </div>
+
+                <!-- Right: Peta Sebaran 6 Unit dalam 1 Kota (7 Cols) -->
+                <div class="lg:col-span-7 space-y-5 min-w-0">
+                    <div>
+                        <span class="text-xs uppercase tracking-widest text-emerald-300 font-semibold">SEBARAN PROPERTI DALAM 1 KOTA</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-white mt-1">Semua Unit Kami Berada di Titik Terbaik Kota Batu</h2>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-1">
+                            Jika satu unit penuh di tanggal pilihan Anda, tim kami dapat langsung merekomendasikan unit kami lainnya yang berjarak hanya 5–10 menit.
+                        </p>
+                    </div>
+
+                    <!-- Interactive Neighborhood Cards in One City -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <div onclick="previewCityMapUnit('villa-forest')" class="glass-card rounded-2xl p-4 cursor-pointer border border-white/10 hover:border-emerald-400/40 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
+                                    <i class="ph-fill ph-map-pin"></i> Zona 1 • Oro-Oro Ombo
+                                </span>
+                                <span class="text-[11px] px-2 py-0.5 rounded-full bg-white/10 text-emerald-300 font-medium">Lihat Peta</span>
+                            </div>
+                            <h4 class="font-semibold text-white text-sm mt-1.5">Royal Forest Villa &amp; Kayu Manis Homestay</h4>
+                            <p class="text-xs text-slate-400 mt-1">3 menit ke Jatim Park 2, Eco Green Park &amp; BNS. Klik untuk lihat titik peta.</p>
+                        </div>
+
+                        <div onclick="previewCityMapUnit('villa-cliff')" class="glass-card rounded-2xl p-4 cursor-pointer border border-white/10 hover:border-emerald-400/40 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+                                    <i class="ph-fill ph-map-pin"></i> Zona 2 • Lembah Pinus Songgoriti
+                                </span>
+                                <span class="text-[11px] px-2 py-0.5 rounded-full bg-white/10 text-amber-300 font-medium">Lihat Peta</span>
+                            </div>
+                            <h4 class="font-semibold text-white text-sm mt-1.5">Sovereign Cliff Glass House (10 Pax)</h4>
+                            <p class="text-xs text-slate-400 mt-1">View langsung perbukitan pinus &amp; lampu kota Batu dari ketinggian. Klik untuk lihat titik peta.</p>
+                        </div>
+
+                        <div onclick="previewCityMapUnit('glamping-dome')" class="glass-card rounded-2xl p-4 cursor-pointer border border-white/10 hover:border-emerald-400/40 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-teal-300 flex items-center gap-1.5">
+                                    <i class="ph-fill ph-map-pin"></i> Zona 3 • Desa Sejuk Junggo Bumiaji
+                                </span>
+                                <span class="text-[11px] px-2 py-0.5 rounded-full bg-white/10 text-teal-300 font-medium">Lihat Peta</span>
+                            </div>
+                            <h4 class="font-semibold text-white text-sm mt-1.5">Aurora Geodesic Dome &amp; Nordic River Cabin</h4>
+                            <p class="text-xs text-slate-400 mt-1">Suasana berkabut di kaki Gunung Arjuno, tepi aliran sungai jernih &amp; kebun apel.</p>
+                        </div>
+
+                        <div onclick="previewCityMapUnit('opentrip-bromo')" class="glass-card rounded-2xl p-4 cursor-pointer border border-white/10 hover:border-emerald-400/40 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
+                                    <i class="ph-fill ph-map-pin"></i> Zona 4 • Bukit Paralayang &amp; Coban Rais
+                                </span>
+                                <span class="text-[11px] px-2 py-0.5 rounded-full bg-white/10 text-emerald-300 font-medium">Lihat Peta</span>
+                            </div>
+                            <h4 class="font-semibold text-white text-sm mt-1.5">Pine Cabin + Private Jeep Sunrise Bromo/Batu</h4>
+                            <p class="text-xs text-slate-400 mt-1">Paket menginap sekalian penjemputan Jeep 4x4 langsung dari depan teras cabin Anda.</p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Google Maps Location Switcher & Embed for All 6 Units -->
+                    <div class="glass-card rounded-2xl p-4 border border-emerald-400/30 space-y-3 min-w-0 overflow-hidden">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 min-w-0">
+                            <div class="min-w-0">
+                                <span class="text-[11px] uppercase tracking-wider text-emerald-300 font-bold flex items-center gap-1.5">
+                                    <i class="ph-fill ph-map-pin-line"></i> PETA LOKASI UNIT &amp; GOOGLE MAPS
+                                </span>
+                                <p id="cityMapActiveLabel" class="text-xs text-slate-200 mt-0.5 truncate">
+                                    Menampilkan lokasi: <strong>Royal Forest Private Pool Villa</strong>
+                                </p>
+                            </div>
+                            <a id="cityMapDirectLink" href="https://www.google.com/maps?q=-7.8894,112.5298" target="_blank" rel="noopener noreferrer"
+                               class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 border border-emerald-400/30 text-xs font-semibold transition shrink-0">
+                                <i class="ph-bold ph-navigation-arrow"></i>
+                                <span>Buka di Google Maps</span>
+                            </a>
+                        </div>
+
+                        <!-- Quick Pill Selector for 6 Unit Locations -->
+                        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 w-full min-w-0" id="cityMapUnitPills">
+                            <!-- Diisi dinamis oleh JS -->
+                        </div>
+
+                        <div class="rounded-xl overflow-hidden border border-white/15 h-56 sm:h-64 bg-slate-950 relative w-full">
+                            <iframe id="cityMapIframe"
+                                    src="https://maps.google.com/maps?q=-7.8894,112.5298&hl=id&z=15&output=embed"
+                                    class="w-full h-full border-0"
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    title="Peta Lokasi Unit di Kota Batu"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri Foto Estetis -->
+    <section id="galeri" class="px-3 sm:px-6 py-10 lg:py-16 w-full max-w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto space-y-8 min-w-0">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 min-w-0">
+                <div class="min-w-0">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/15 border border-teal-400/30 text-teal-300 text-xs font-medium mb-3">
+                        <i class="ph-fill ph-camera"></i>
+                        <span>GALERI VISUAL ESTETIS</span>
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-white">Setiap Sudut Adalah Cerita</h2>
+                    <p class="text-slate-300 text-sm sm:text-base mt-2 max-w-xl">
+                        Visual beresolusi tinggi dengan nuansa *glass framing* untuk meningkatkan kepercayaan dan keinginan menginap calon tamu Anda.
+                    </p>
+                </div>
+
+                <!-- Filter Galeri (Scrollable on Mobile) -->
+                <div class="glass-panel p-1.5 rounded-xl flex overflow-x-auto no-scrollbar gap-1 text-xs font-medium w-full md:w-auto">
+                    <button onclick="filterGallery('all')" data-gal="all" class="gal-btn shrink-0 px-3.5 py-2 rounded-lg bg-emerald-500 text-slate-950 font-semibold transition">Semua Foto</button>
+                    <button onclick="filterGallery('Interior')" data-gal="Interior" class="gal-btn shrink-0 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white transition">Kamar &amp; Interior</button>
+                    <button onclick="filterGallery('Pool & Alam')" data-gal="Pool & Alam" class="gal-btn shrink-0 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white transition">Infinity Pool &amp; Alam</button>
+                    <button onclick="filterGallery('Dining & Aktivitas')" data-gal="Dining & Aktivitas" class="gal-btn shrink-0 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white transition">Floating Breakfast &amp; Trip</button>
+                </div>
+            </div>
+
+            <!-- Bento Grid Galeri -->
+            <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Dirender melalui JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Fitur Andalan: Kalkulator Estimasi Menginap Otomatis + Direct WhatsApp -->
+    <section id="kalkulator" class="px-3 sm:px-6 py-10 lg:py-20 w-full max-w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto min-w-0">
+            <div class="glass-panel rounded-3xl p-4 sm:p-10 lg:p-12 border border-emerald-400/25 relative overflow-hidden min-w-0">
+                <!-- Decorative Glow -->
+                <div class=" -top-24 -right-24 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none absolute"></div>
+                <div class=" -bottom-24 -left-24 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none absolute"></div>
+
+                <div class="max-w-3xl mb-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-semibold mb-3">
+                        <i class="ph-fill ph-lightning"></i>
+                        <span>FITUR ANDALAN: KALKULATOR ESTIMASI MENGINAP OTOMATIS</span>
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-white">Hitung Estimasi Biaya &amp; Kirim ke WhatsApp</h2>
+                    <p class="text-slate-300 text-sm sm:text-base mt-2">
+                        Sistem pintar kami mendeteksi tanggal <strong class="text-emerald-300">Weekday (Senin–Kamis)</strong> dan <strong class="text-amber-300">Weekend (Jumat–Minggu)</strong> secara otomatis dari rentang tanggal menginap Anda, lengkap dengan layanan tambahan.
+                    </p>
+                </div>
+                <!--div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"-->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start min-w-0">
+                    <!-- Kolom Kiri: Form Konfigurasi Menginap (7 Kolom) -->
+                    <div class="lg:col-span-7 space-y-6 min-w-0 w-full">
+                        <!-- Step 1: Pilih Unit & Jumlah Unit -->
+                        <div class="glass-card rounded-2xl p-4 sm:p-5 space-y-4 min-w-0 overflow-hidden">
+                            <div class="flex items-center justify-between gap-2 min-w-0">
+                                <h3 class="text-sm sm:text-base font-semibold text-white flex items-center gap-2 min-w-0">
+                                    <span class="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 text-xs font-bold flex items-center justify-center shrink-0">1</span>
+                                    <span class="leading-snug">Pilih Unit Villa / Glamping / Paket</span>
+                                </h3>
+                                <span id="selectedUnitBadge" class="shrink-0 whitespace-nowrap text-[11px] px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold">Luxury Pool Villa</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs text-slate-300 mb-1.5">Unit Pilihan</label>
+                                    <select id="calcUnitSelect" onchange="recalculateStay()" class="w-full glass-input rounded-xl px-3.5 py-3 text-sm font-medium">
+                                        <!-- Diisi via JS -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-slate-300 mb-1.5">Jumlah Unit / Paket</label>
+                                    <div class="flex items-center glass-input rounded-xl overflow-hidden">
+                                        <button type="button" onclick="adjustCount('calcRoomCount', -1, 1, 10)" class="px-3.5 py-3 hover:bg-white/10 text-emerald-300 transition">
+                                            <i class="ph-bold ph-minus"></i>
+                                        </button>
+                                        <input type="number" id="calcRoomCount" value="1" min="1" max="10" readonly class="w-full bg-transparent text-center text-sm font-bold text-white focus:outline-none">
+                                        <button type="button" onclick="adjustCount('calcRoomCount', 1, 1, 10)" class="px-3.5 py-3 hover:bg-white/10 text-emerald-300 transition">
+                                            <i class="ph-bold ph-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Info Kapasitas & Tarif Unit Terpilih -->
+                            <div id="unitQuickSpecs" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-3 border-t border-white/10 text-xs">
+                                <!-- Diisi via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Tanggal Check-In, Check-Out & Jumlah Tamu -->
+                        <div class="glass-card rounded-2xl p-4 sm:p-5 space-y-4 overflow-hidden">
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <h3 class="text-sm sm:text-base font-semibold text-white flex items-center gap-2">
+                                    <span class="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 text-xs font-bold flex items-center justify-center shrink-0">2</span>
+                                    <span>Tanggal Menginap &amp; Jumlah Tamu</span>
+                                </h3>
+                                <span class="text-xs text-slate-300">
+                                    <i class="ph-fill ph-info text-emerald-400"></i>
+                                    Jumat, Sabtu &amp; Minggu dihitung tarif Weekend
+                                </span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                                <!-- Grid 2 Kolom di Mobile untuk Check-In & Check-Out agar kompak dan tidak pernah melebar keluar kartu -->
+                                <div class="grid grid-cols-2 gap-2.5 sm:col-span-2 sm:grid-cols-2 min-w-0">
+                                    <div class="min-w-0">
+                                        <label class="block text-xs text-slate-300 mb-1.5 truncate">Tanggal Check-In</label>
+                                        <div class="relative flex items-center glass-input rounded-xl px-3 py-2.5 min-w-0 overflow-hidden">
+                                            <input type="date" id="calcCheckIn" onchange="handleDateChange()" class="w-full min-w-0 bg-transparent text-xs sm:text-sm font-medium text-white focus:outline-none pr-5">
+                                            <i class="ph-duotone ph-calendar-blank text-emerald-300 text-sm pointer-events-none absolute right-3"></i>
+                                        </div>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <label class="block text-xs text-slate-300 mb-1.5 truncate">Tanggal Check-Out</label>
+                                        <div class="relative flex items-center glass-input rounded-xl px-3 py-2.5 min-w-0 overflow-hidden">
+                                            <input type="date" id="calcCheckOut" onchange="handleDateChange()" class="w-full min-w-0 bg-transparent text-xs sm:text-sm font-medium text-white focus:outline-none pr-5">
+                                            <i class="ph-duotone ph-calendar-blank text-emerald-300 text-sm pointer-events-none absolute right-3"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="min-w-0">
+                                    <label class="block text-xs text-slate-300 mb-1.5">Total Tamu (Orang)</label>
+                                    <div class="flex items-center glass-input rounded-xl overflow-hidden">
+                                        <button type="button" onclick="adjustCount('calcGuestCount', -1, 1, 30)" class="px-3.5 py-2.5 hover:bg-white/10 text-emerald-300 transition">
+                                            <i class="ph-bold ph-minus"></i>
+                                        </button>
+                                        <input type="number" id="calcGuestCount" value="4" min="1" max="30" readonly class="w-full min-w-0 bg-transparent text-center text-sm font-bold text-white focus:outline-none">
+                                        <button type="button" onclick="adjustCount('calcGuestCount', 1, 1, 30)" class="px-3.5 py-2.5 hover:bg-white/10 text-emerald-300 transition">
+                                            <i class="ph-bold ph-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Visual Breakdown Hari Menginap -->
+                            <div class="bg-slate-950/50 border border-white/10 rounded-xl p-3">
+                                <div class="text-[11px] uppercase tracking-wider text-slate-400 mb-2 font-semibold">Deteksi Kalender Otomatis Per Malam:</div>
+                                <div id="nightPillsContainer" class="flex flex-wrap gap-2">
+                                    <!-- Diisi via JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Layanan Tambahan (Add-ons) -->
+                        <div class="glass-card rounded-2xl p-4 sm:p-5 space-y-4">
+                            <h3 class="text-sm sm:text-base font-semibold text-white flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 text-xs font-bold flex items-center justify-center shrink-0">3</span>
+                                <span>Fasilitas Tambahan (Add-Ons Opsional)</span>
+                            </h3>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="addonsContainer">
+                                <!-- Add-on 1: Extra Bed -->
+                                <label class="flex items-start gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 cursor-pointer transition">
+                                    <input type="checkbox" id="addonExtraBed" onchange="recalculateStay()" class="mt-1 w-4 h-4 accent-emerald-400 rounded">
+                                    <div class="flex-1 text-xs">
+                                        <div class="font-semibold text-white flex justify-between">
+                                            <span>Extra Bed + Breakfast</span>
+                                            <span class="text-emerald-300">Rp 250rb/mlm</span>
+                                        </div>
+                                        <p class="text-slate-400 mt-0.5">Kasur tambahan + sarapan pagi untuk 1 orang per malam.</p>
+                                    </div>
+                                </label>
+
+                                <!-- Add-on 2: Floating Breakfast -->
+                                <label class="flex items-start gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 cursor-pointer transition">
+                                    <input type="checkbox" id="addonFloatingBF" onchange="recalculateStay()" class="mt-1 w-4 h-4 accent-emerald-400 rounded">
+                                    <div class="flex-1 text-xs">
+                                        <div class="font-semibold text-white flex justify-between">
+                                            <span>Floating Breakfast Tray</span>
+                                            <span class="text-emerald-300">Rp 350rb/set</span>
+                                        </div>
+                                        <p class="text-slate-400 mt-0.5">Sajian sarapan estetis di atas nampan apung private pool.</p>
+                                    </div>
+                                </label>
+
+                                <!-- Add-on 3: Private BBQ Dinner -->
+                                <label class="flex items-start gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 cursor-pointer transition">
+                                    <input type="checkbox" id="addonBBQ" onchange="recalculateStay()" class="mt-1 w-4 h-4 accent-emerald-400 rounded">
+                                    <div class="flex-1 text-xs">
+                                        <div class="font-semibold text-white flex justify-between">
+                                            <span>Private Grill &amp; BBQ Set</span>
+                                            <span class="text-emerald-300">Rp 450rb/paket</span>
+                                        </div>
+                                        <p class="text-slate-400 mt-0.5">Daging premium, sosis, jagung manis + alat panggang di teras villa.</p>
+                                    </div>
+                                </label>
+
+                                <!-- Add-on 4: Jeep Sunrise / Airport Transfer -->
+                                <label class="flex items-start gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 cursor-pointer transition">
+                                    <input type="checkbox" id="addonJeep" onchange="recalculateStay()" class="mt-1 w-4 h-4 accent-emerald-400 rounded">
+                                    <div class="flex-1 text-xs">
+                                        <div class="font-semibold text-white flex justify-between">
+                                            <span>Private Jeep Sunrise Tour</span>
+                                            <span class="text-emerald-300">Rp 650rb/jeep</span>
+                                        </div>
+                                        <p class="text-slate-400 mt-0.5">Tur pagi 4x4 menuju spot matahari terbit + dokumentasi foto.</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Data Pemesan & Nomor WA Tujuan -->
+                        <div class="glass-card rounded-2xl p-4 sm:p-5 space-y-4">
+                            <h3 class="text-sm sm:text-base font-semibold text-white flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 text-xs font-bold flex items-center justify-center shrink-0">4</span>
+                                <span>Identitas Tamu &amp; Kode Promo</span>
+                            </h3>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-slate-300 mb-1.5">Nama Lengkap Pemesan</label>
+                                    <input type="text" id="guestName" oninput="recalculateStay()" placeholder="Contoh: Budi Santoso" value="Budi Santoso" class="w-full glass-input rounded-xl px-3.5 py-2.5 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-slate-300 mb-1.5">Kode Voucher (Coba: <span class="text-emerald-300 font-mono">STAYCATION10</span>)</label>
+                                    <input type="text" id="promoCode" oninput="recalculateStay()" placeholder="Ketik STAYCATION10" class="w-full glass-input rounded-xl px-3.5 py-2.5 text-sm uppercase">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs text-slate-300 mb-1.5">Catatan Khusus (Permintaan Honeymoon, Check-in Sore, dll)</label>
+                                <input type="text" id="guestNotes" oninput="recalculateStay()" placeholder="Contoh: Mohon siapkan kamar dengan view lembah terbaik" class="w-full glass-input rounded-xl px-3.5 py-2.5 text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kolom Kanan: Live Invoice & Tombol WhatsApp (5 Kolom) -->
+                    <div class="lg:col-span-5 lg:sticky lg:top-28 min-w-0 w-full">
+                        <div class="glass-panel rounded-2xl p-4 sm:p-6 border border-emerald-400/35 space-y-5 shadow-2xl min-w-0 overflow-hidden">
+                            <!-- Invoice Header -->
+                            <div class="flex items-start justify-between gap-3 border-b border-white/10 pb-4">
+                                <div class="min-w-0">
+                                    <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-emerald-300 font-semibold block">ESTIMASI OTOMATIS REAL-TIME</span>
+                                    <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mt-0.5 leading-snug" id="summaryUnitTitle">Royal Forest Pool Villa</h3>
+                                </div>
+                                <div class="text-right shrink-0 bg-emerald-500/10 border border-emerald-400/25 rounded-xl px-3 py-1.5">
+                                    <span class="text-[10px] text-slate-300 block whitespace-nowrap">Total Durasi</span>
+                                    <span id="summaryTotalNights" class="text-sm sm:text-base font-bold text-emerald-300 whitespace-nowrap block">2 Malam</span>
+                                </div>
+                            </div>
+
+                            <!-- Rincian Perhitungan -->
+                            <div class="space-y-3 text-xs sm:text-sm">
+                                <div class="flex items-center justify-between gap-2 text-slate-300">
+                                    <span id="labelWeekdayRow" class="min-w-0">Tarif Weekday (1 mlm × 1 unit)</span>
+                                    <span id="valWeekdayRow" class="font-semibold text-white shrink-0 whitespace-nowrap">Rp 1.450.000</span>
+                                </div>
+                                <div class="flex items-center justify-between gap-2 text-slate-300">
+                                    <span id="labelWeekendRow" class="min-w-0">Tarif Weekend (1 mlm × 1 unit)</span>
+                                    <span id="valWeekendRow" class="font-semibold text-amber-300 shrink-0 whitespace-nowrap">Rp 1.950.000</span>
+                                </div>
+                                <div id="rowExtraGuest" class="hidden items-center justify-between gap-2 text-amber-200 text-xs bg-amber-500/10 border border-amber-400/20 px-3 py-2 rounded-lg">
+                                    <span id="labelExtraGuest" class="min-w-0">Biaya Kelebihan Kapasitas Tamu</span>
+                                    <span id="valExtraGuest" class="font-semibold shrink-0 whitespace-nowrap">Rp 0</span>
+                                </div>
+                                <div id="rowAddons" class="flex items-center justify-between gap-2 text-slate-300">
+                                    <span class="min-w-0">Layanan Add-Ons Tambahan</span>
+                                    <span id="valAddons" class="font-semibold text-white shrink-0 whitespace-nowrap">Rp 0</span>
+                                </div>
+                                <div id="rowDiscount" class="hidden items-center justify-between gap-2 text-emerald-300">
+                                    <span class="min-w-0">Diskon Promo (<span id="discountCodeLabel">STAYCATION10</span>)</span>
+                                    <span id="valDiscount" class="font-semibold shrink-0 whitespace-nowrap">- Rp 0</span>
+                                </div>
+
+                                <div class="border-t border-white/15 pt-3.5 flex items-center justify-between gap-3">
+                                <div class="min-w-0">
+                                    <span class="text-[11px] uppercase tracking-wider text-slate-300 font-semibold block">Total Estimasi Menginap</span>
+                                    <span class="text-[11px] text-emerald-300/90 block">Termasuk pajak &amp; welcome drink</span>
+                                </div>
+                                <span id="valGrandTotal" class="font-serif text-2xl sm:text-3xl font-bold text-white shrink-0 whitespace-nowrap">Rp 3.400.000</span>
+                            </div>
+
+                            <!-- Opsi DP 50% -->
+                            <div class="bg-emerald-950/60 border border-emerald-500/25 rounded-xl p-3 flex items-center justify-between gap-2 text-xs">
+                                <span class="text-slate-300 min-w-0">Minimal Down Payment (DP 50% Lock Tanggal):</span>
+                                <strong id="valDpAmount" class="text-emerald-300 text-sm shrink-0 whitespace-nowrap">Rp 1.700.000</strong>
+                            </div>
+                        </div>
+
+                        <!-- Preview Teks WhatsApp Otomatis (DISEMBUNYIKAN) -->
+                        <div class="hidden">
+                            <pre id="waMessagePreview"></pre>
+                        </div>
+
+                        <!-- Pengaturan Nomor WA Admin (DISEMBUNYIKAN - Tetap bisa diganti via console JS jika diperlukan) -->
+                        <div class="hidden pt-1">
+                            <label class="block text-[11px] text-slate-400 mb-1">Nomor WhatsApp Admin Tujuan (Bisa diganti saat demo ke klien):</label>
+                            <div class="flex items-center gap-2">
+                                <input type="text" id="adminWaNumber" value="6281234567890" oninput="recalculateStay()" class="w-full glass-input rounded-lg px-3 py-1.5 text-xs font-mono text-emerald-300">
+                            </div>
+                        </div>
+
+                        <!-- Tombol Utama Kirim ke WhatsApp (Diperbarui Teksnya) -->
+                        <button type="button" onclick="sendToWhatsApp()" class="w-full py-4 px-5 rounded-xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-xl shadow-emerald-500/25 transition transform active:scale-[0.99]">
+                            <i class="ph-fill ph-whatsapp-logo text-xl"></i>
+                            <span>Pesan Sekarang</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Seksi Tambahan untuk Target Klien: Agen Open Trip & Resort -->
+    <section id="fasilitas" class="px-4 sm:px-6 py-12 lg:py-16">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="glass-card rounded-2xl p-6 space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300">
+                        <i class="ph-duotone ph-tent text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold text-white">Cocok untuk Villa &amp; Glamping</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Tampilkan perbedaan tarif malam biasa (*Weekday*) dan akhir pekan (*Weekend*) tanpa membuat tamu bingung menghitung manual.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-300">
+                        <i class="ph-duotone ph-jeep text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold text-white">Siap untuk Agen Open Trip</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Tidak hanya kamar, katalog juga mendukung paket *Open Trip* atau *Private Trip* lengkap dengan *add-on* Jeep, BBQ, dan dokumentasi drone.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-teal-500/20 border border-teal-400/30 flex items-center justify-center text-teal-300">
+                        <i class="ph-duotone ph-chats-circle text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold text-white">Konversi Tinggi ke WhatsApp</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Admin CS menerima pesan WhatsApp yang sudah rapi berisi tanggal, rincian malam Weekday/Weekend, jumlah tamu, dan nominal DP 50%.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="px-4 sm:px-6 pt-12 pb-10 border-t border-white/10 mt-10">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 text-center sm:text-left">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300 shrink-0">
+                    <i class="ph-duotone ph-house-line text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-white font-semibold">Hengkyy Stays • Single-Host Multi-Unit Collection</span> (<span class="text-emerald-300 font-mono" id="footerSubdomain">demo-stay.adexidn.com</span>)
+                </div>
+            </div>
+            <div>
+                © 2026 Katalog Produk Digital • Desain UI/UX Eksklusif Responsif
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Baru: Detail Unit Gaya Airbnb (Bottom-Sheet di Mobile & Centered Clean Glass Modal di Desktop) -->
+    <div id="airbnbDetailModal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-slate-900/50 backdrop-blur-md p-0 sm:p-6 overflow-y-auto">
+        <div class="max-w-5xl w-full glass-panel rounded-t-3xl sm:rounded-3xl border border-slate-200 shadow-2xl overflow-hidden sm:my-auto max-h-[92vh] flex flex-col">
+            <!-- Modal Top Sticky Header -->
+            <div class="px-4 sm:px-7 py-3.5 sm:py-4 border-b border-white/10 flex items-center justify-between bg-slate-950/80">
+                <div class="flex items-center gap-2 min-w-0">
+                    <span id="modalGuestFavBadge" class="px-2.5 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-[11px] sm:text-xs font-semibold flex items-center gap-1 shrink-0">
+                        <i class="ph-fill ph-trophy"></i> Pilihan Tamu
+                    </span>
+                    <span id="modalSubAreaBadge" class="text-xs text-slate-300 truncate"></span>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button onclick="toggleWishlistFromModal()" id="modalWishlistBtn" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-xs text-white flex items-center gap-1.5 transition">
+                        <i class="ph-fill ph-heart text-rose-400"></i>
+                        <span class="hidden sm:inline">Simpan</span>
+                    </button>
+                    <button onclick="closeUnitDetailModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
+                        <i class="ph-bold ph-x text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Scrollable Content -->
+            <div class="p-4 sm:p-7 overflow-y-auto space-y-5 sm:space-y-6">
+                <!-- Title & Rating Row -->
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                    <div>
+                        <h3 id="modalUnitTitle" class="font-serif text-2xl sm:text-4xl font-bold text-white"></h3>
+                        <p id="modalUnitSubtitle" class="text-xs sm:text-sm text-slate-300 mt-1"></p>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs sm:text-sm">
+                        <i class="ph-fill ph-star text-amber-400"></i>
+                        <strong id="modalUnitRating" class="text-white">4.98</strong>
+                        <span id="modalUnitReviews" class="text-slate-400 underline"></span>
+                    </div>
+                </div>
+
+                <!-- Airbnb Photo Grid (Horizontal Swipe on Mobile, 3-Photo Bento on Desktop) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 md:h-80 rounded-2xl overflow-hidden">
+                    <div class="md:col-span-2 h-56 sm:h-64 md:h-full overflow-hidden rounded-xl md:rounded-none">
+                        <img id="modalMainImg" src="" alt="Main Unit Photo" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-1 md:grid-rows-2 gap-2.5 sm:gap-3 h-28 sm:h-36 md:h-full">
+                        <img id="modalSubImg1" src="" alt="Interior Detail" class="w-full h-full object-cover rounded-xl md:rounded-none">
+                        <img id="modalSubImg2" src="" alt="Pool & View Detail" class="w-full h-full object-cover rounded-xl md:rounded-none">
+                    </div>
+                </div>
+
+                <!-- Two Column Airbnb Layout: Details Left, Quick Price Box Right -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <div class="lg:col-span-7 space-y-5">
+                        <!-- Hosted By Single Superhost -->
+                        <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                            <div>
+                                <h4 class="text-sm sm:text-base font-semibold text-white">Seluruh unit dikelola oleh Muhammad Hengky</h4>
+                                <p id="modalSpecsLine" class="text-xs text-slate-300 mt-0.5"></p>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+                                 alt="Muhammad Hengky"
+                                 class="w-12 h-12 rounded-full object-cover border border-emerald-400 shadow-sm shrink-0">
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <i class="ph-duotone ph-key text-xl text-emerald-300 shrink-0 mt-0.5"></i>
+                                <div>
+                                    <div class="font-semibold text-white">Self Check-In dengan Smart Door Lock</div>
+                                    <div class="text-slate-400 text-xs">Masuk dengan kode PIN pribadi kapan saja setelah pukul 14.00 WIB.</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="ph-duotone ph-map-pin-line text-xl text-emerald-300 shrink-0 mt-0.5"></i>
+                                <div>
+                                    <div class="font-semibold text-white" id="modalLocationHighlight">Lokasi Strategis di Kota Wisata Batu</div>
+                                    <div class="text-slate-400 text-xs" id="modalDistanceText"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="ph-duotone ph-percent text-xl text-amber-300 shrink-0 mt-0.5"></i>
+                                <div>
+                                    <div class="font-semibold text-white">Jaminan Harga Terbaik Langsung Pemilik</div>
+                                    <div class="text-slate-400 text-xs">Bebas biaya layanan aplikasi pihak ketiga (hemat hingga Rp 350.000/malam).</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fasilitas Unit -->
+                        <div class="pt-3 border-t border-white/10">
+                            <h5 class="text-sm font-semibold text-white mb-2.5">Fasilitas Unggulan di Unit Ini:</h5>
+                            <div id="modalFeaturesList" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-200"></div>
+                        </div>
+
+                        <!-- Lokasi & Peta Google Maps Unit -->
+                        <div class="pt-4 border-t border-white/10 space-y-3">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <div>
+                                    <h5 class="text-sm font-semibold text-white flex items-center gap-1.5">
+                                        <i class="ph-fill ph-map-pin-line text-emerald-400"></i>
+                                        <span>Lokasi &amp; Peta Google Maps</span>
+                                    </h5>
+                                    <p id="modalAddressText" class="text-xs text-slate-400 mt-0.5"></p>
+                                </div>
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <a id="modalGoogleMapsBtn" href="#" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 border border-emerald-400/30 text-xs font-semibold flex items-center gap-1.5 transition">
+                                        <i class="ph-bold ph-arrow-square-out"></i>
+                                        <span>Google Maps</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="rounded-2xl overflow-hidden border border-white/15 h-48 sm:h-56 bg-slate-950">
+                                <iframe id="modalMapIframe"
+                                        src=""
+                                        class="w-full h-full border-0"
+                                        loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        title="Google Maps Unit"></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Sticky Price & Direct Calculator Trigger -->
+                    <div class="lg:col-span-5 glass-card rounded-2xl p-5 border border-emerald-400/35 space-y-4">
+                        <div class="grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-950/70 border border-white/10">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-emerald-300 font-semibold block">Weekday (Sen–Kam)</span>
+                                <strong id="modalWeekdayPrice" class="text-base sm:text-lg text-white"></strong>
+                                <span class="text-[10px] text-slate-400">/malam</span>
+                            </div>
+                            <div class="border-l border-white/10 pl-3">
+                                <span class="text-[10px] uppercase tracking-wider text-amber-300 font-semibold block">Weekend (Jum–Min)</span>
+                                <strong id="modalWeekendPrice" class="text-base sm:text-lg text-amber-300"></strong>
+                                <span class="text-[10px] text-slate-400">/malam</span>
+                            </div>
+                        </div>
+
+                        <div class="text-xs text-slate-300 space-y-1.5 bg-white/5 p-3 rounded-xl">
+                            <div class="flex justify-between">
+                                <span>Check-in / Check-out:</span>
+                                <span class="text-white font-medium">14:00 / 12:00 WIB</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Biaya Layanan Platform:</span>
+                                <span class="text-emerald-300 font-semibold">Rp 0 (Direct Host)</span>
+                            </div>
+                        </div>
+
+                        <button id="modalSelectUnitBtn" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition">
+                            <i class="ph-bold ph-calculator text-base"></i>
+                            <span>Masukkan ke Kalkulator &amp; Booking WA</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 1: Lightbox Galeri Foto -->
+    <div id="lightboxModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-md p-4">
+        <div class="max-w-4xl w-full glass-panel rounded-3xl overflow-hidden border border-slate-200 shadow-2xl">
+            <div class="relative">
+                <img id="lightboxImg" src="" alt="Preview Foto" class="w-full max-h-[70vh] object-cover">
+                <button onclick="closeLightbox()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white border border-white/20 flex items-center justify-center transition">
+                    <i class="ph-bold ph-x text-lg"></i>
+                </button>
+                <span id="lightboxBadge" class="absolute bottom-4 left-4 px-3 py-1 rounded-full glass-panel text-xs font-semibold text-emerald-300"></span>
+            </div>
+            <div class="p-5 flex items-center justify-between gap-4">
+                <div>
+                    <h4 id="lightboxTitle" class="font-serif text-2xl font-semibold text-white"></h4>
+                    <p id="lightboxDesc" class="text-xs sm:text-sm text-slate-300 mt-1"></p>
+                </div>
+                <a href="#kalkulator" onclick="closeLightbox()" class="shrink-0 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition">
+                    Booking Unit Ini
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Mode Presentasi PT (Kustomisasi Nama PT & Selling Points) -->
+    <div id="pitchModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 backdrop-blur-md p-4">
+        <div class="max-w-xl w-full glass-panel rounded-3xl p-6 sm:p-8 border border-emerald-500/35 space-y-5 shadow-2xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-amber-300">KUSTOMISASI DEMO CALON PT</span>
+                    <h3 class="font-serif text-2xl sm:text-3xl font-bold text-white mt-1">Produk #1: Website Booking Villa &amp; Resort</h3>
+                </div>
+                <button onclick="closePitchModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+                    <i class="ph-bold ph-x"></i>
+                </button>
+            </div>
+
+            <div class="space-y-3 text-xs sm:text-sm text-slate-200">
+                <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                    <label class="block text-xs text-emerald-300 font-semibold">Ubah Nama Domain PT Anda (Live di Top Bar &amp; Footer):</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="customPtDomainInput" value="demo-stay.adexidn.com" class="flex-1 glass-input rounded-xl px-3.5 py-2 text-xs font-mono">
+                        <button onclick="updateSubdomainLabel()" class="px-4 py-2 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400 transition">Terapkan</button>
+                    </div>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <div class="font-semibold text-white">Poin Presentasi (Pitching) ke Pemilik Villa / Glamping / Open Trip:</div>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <i class="ph-fill ph-check-circle text-emerald-400 text-base shrink-0 mt-0.5"></i>
+                            <span><strong>Konsep Single-Owner Marketplace:</strong> Sangat cocok untuk juragan villa/homestay yang punya 2 hingga 20 unit di satu kota agar terlihat seperti platform *marketplace* eksklusif milik sendiri.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="ph-fill ph-check-circle text-emerald-400 text-base shrink-0 mt-0.5"></i>
+                            <span><strong>Bebas Potongan Komisi OTA (15%–22%):</strong> Tamu memesan langsung melalui website resmi pemilik dan terhubung ke WhatsApp CS.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="ph-fill ph-check-circle text-emerald-400 text-base shrink-0 mt-0.5"></i>
+                            <span><strong>Otomatisasi Hitung Weekday vs Weekend:</strong> Mengurangi beban admin menjawab pertanyaan berulang "Kalau menginap Kamis sampai Minggu habis berapa?".</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="ph-fill ph-check-circle text-emerald-400 text-base shrink-0 mt-0.5"></i>
+                            <span><strong>Cross-Selling Antar Unit Satu Owner:</strong> Bila Villa A penuh, tamu bisa langsung melihat Villa B atau Cabin C milik *owner* yang sama di kota tersebut.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-2">
+                <button onclick="closePitchModal()" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition">
+                    Tutup &amp; Lanjutkan Demo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Airbnb-Style Multi-Step Search Popup (Persis Gambar 2: Lokasi, Tanggal Perjalanan, Peserta + Bottom Bar) -->
+    <div id="quickFilterModal" onclick="if(event.target === this) closeQuickFilterModal()" class="fixed inset-0 z-50 hidden flex-col justify-between bg-slate-100/95 backdrop-blur-xl overflow-y-auto">
+        <!-- Top Bar Modal: Tab Kategori + Tombol Close Bulat di Kanan (Persis Gambar 2) -->
+        <div class="max-w-lg w-full mx-auto px-4 pt-4 pb-2 flex items-center justify-between">
+            <div class="w-9"></div>
+            <div class="flex items-center gap-6 text-xs font-semibold">
+                <button type="button" onclick="switchModalTopTab('homes')" id="modalTab-homes" class="flex flex-col items-center gap-1 pb-1.5 border-b-2 border-slate-900 text-slate-900 transition">
+                    <span class="text-lg leading-none">🏡</span>
+                    <span>Villa &amp; Cabin</span>
+                </button>
+                <button type="button" onclick="switchModalTopTab('trip')" id="modalTab-trip" class="flex flex-col items-center gap-1 pb-1.5 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition">
+                    <span class="text-lg leading-none">🚙</span>
+                    <span>Jeep Trip</span>
+                </button>
+                <button type="button" onclick="switchModalTopTab('services')" id="modalTab-services" class="flex flex-col items-center gap-1 pb-1.5 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition">
+                    <span class="text-lg leading-none">🍽️</span>
+                    <span>Layanan</span>
+                </button>
+            </div>
+            <button type="button" onclick="closeQuickFilterModal()" class="w-9 h-9 rounded-full bg-white border border-slate-300 shadow-sm flex items-center justify-center text-slate-800 hover:bg-slate-50 transition">
+                <i class="ph-bold ph-x text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Middle Scrollable Accordion Cards (Lokasi, Tanggal Perjalanan, Peserta) -->
+        <div class="max-w-lg w-full mx-auto px-3.5 py-2 space-y-3 flex-1 overflow-y-auto">
+
+            <!-- CARD 1: LOKASI -->
+            <div class="bg-white rounded-3xl border border-slate-200/90 shadow-md overflow-hidden transition-all">
+                <!-- Collapsed Header Lokasi (Muncul saat user sedang membuka tab Tanggal / Peserta) -->
+                <button type="button" id="accHeader-lokasi" onclick="toggleSearchAccordion('lokasi')" class="hidden w-full px-5 py-4 items-center justify-between text-xs sm:text-sm">
+                    <span class="text-slate-500 font-medium">Lokasi</span>
+                    <span id="accSummary-lokasi" class="font-bold text-slate-900">Semua Area, Batu</span>
+                </button>
+
+                <!-- Expanded Body Lokasi (Default Terbuka seperti Gambar 2) -->
+                <div id="accBody-lokasi" class="p-5 space-y-4">
+                    <h3 class="text-xl font-bold text-slate-900 tracking-tight">Lokasi</h3>
+
+                    <!-- Input Cari Destinasi -->
+                    <div class="relative flex items-center">
+                        <i class="ph-bold ph-magnifying-glass text-slate-700 text-base absolute left-3.5 pointer-events-none"></i>
+                        <input type="text" id="destSearchInput" oninput="filterSuggestedDestinations(this.value)" placeholder="Cari destinasi atau nama villa"
+                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 text-xs sm:text-sm text-slate-900 placeholder:text-slate-500 focus:outline-none focus:border-slate-900">
+                    </div>
+
+                    <div class="space-y-2.5">
+                        <div class="text-[11px] font-semibold text-slate-500">Destinasi yang disarankan di Kota Batu</div>
+
+                        <div id="suggestedDestList" class="space-y-1 max-h-56 overflow-y-auto pr-1">
+                            <!-- Item 1: Semua Area Kota Batu -->
+                            <button type="button" data-search="semua area kota wisata batu" onclick="selectPopupDestination('all', 'Semua Area, Batu')"
+                                    class="dest-item w-full flex items-center gap-3.5 p-2 rounded-2xl hover:bg-slate-100 text-left transition">
+                                <div class="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-100 flex items-center justify-center text-sky-600 shrink-0">
+                                    <i class="ph-duotone ph-navigation-arrow text-2xl"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs sm:text-sm font-bold text-slate-900">Semua Area di Kota Batu</div>
+                                    <div class="text-[11px] text-slate-500 truncate">Tampilkan seluruh 6 unit milik Superhost</div>
+                                </div>
+                            </button>
+
+                            <!-- Item 2: Oro-Oro Ombo -->
+                            <button type="button" data-search="oro-oro ombo jatim park 2 bns" onclick="selectPopupDestination('Oro-Oro Ombo', 'Oro-Oro Ombo, Batu')"
+                                    class="dest-item w-full flex items-center gap-3.5 p-2 rounded-2xl hover:bg-slate-100 text-left transition">
+                                <div class="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+                                    <i class="ph-duotone ph-swimming-pool text-2xl"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs sm:text-sm font-bold text-slate-900">Oro-Oro Ombo, Batu</div>
+                                    <div class="text-[11px] text-slate-500 truncate">Dekat Jatim Park 2, Eco Green Park &amp; BNS</div>
+                                </div>
+                            </button>
+
+                            <!-- Item 3: Songgoriti -->
+                            <button type="button" data-search="songgoriti lembah pinus" onclick="selectPopupDestination('Songgoriti', 'Songgoriti, Batu')"
+                                    class="dest-item w-full flex items-center gap-3.5 p-2 rounded-2xl hover:bg-slate-100 text-left transition">
+                                <div class="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 shrink-0">
+                                    <i class="ph-duotone ph-mountains text-2xl"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs sm:text-sm font-bold text-slate-900">Lembah Pinus Songgoriti</div>
+                                    <div class="text-[11px] text-slate-500 truncate">Untuk pemandangan lampu kota &amp; perbukitan</div>
+                                </div>
+                            </button>
+
+                            <!-- Item 4: Bumiaji -->
+                            <button type="button" data-search="bumiaji junggo selecta sungai" onclick="selectPopupDestination('Bumiaji', 'Bumiaji, Batu')"
+                                    class="dest-item w-full flex items-center gap-3.5 p-2 rounded-2xl hover:bg-slate-100 text-left transition">
+                                <div class="w-12 h-12 rounded-2xl bg-teal-50 border border-teal-100 flex items-center justify-center text-teal-600 shrink-0">
+                                    <i class="ph-duotone ph-campfire text-2xl"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs sm:text-sm font-bold text-slate-900">Desa Sejuk Junggo, Bumiaji</div>
+                                    <div class="text-[11px] text-slate-500 truncate">Glamping tepi sungai &amp; kebun apel sejuk</div>
+                                </div>
+                            </button>
+
+                            <!-- Item 5: Coban Rais -->
+                            <button type="button" data-search="coban rais jeep sunrise bromo" onclick="selectPopupDestination('Coban Rais', 'Coban Rais, Batu')"
+                                    class="dest-item w-full flex items-center gap-3.5 p-2 rounded-2xl hover:bg-slate-100 text-left transition">
+                                <div class="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600 shrink-0">
+                                    <i class="ph-duotone ph-jeep text-2xl"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs sm:text-sm font-bold text-slate-900">Bukit Coban Rais, Batu</div>
+                                    <div class="text-[11px] text-slate-500 truncate">Untuk pecinta alam &amp; paket Jeep Sunrise</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 2: TANGGAL PERJALANAN (Collapsed pill seperti Gambar 2, bisa diklik untuk buka kalender) -->
+            <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden transition-all">
+                <button type="button" id="accHeader-tanggal" onclick="toggleSearchAccordion('tanggal')" class="w-full px-5 py-4 flex items-center justify-between text-xs sm:text-sm">
+                    <span class="text-slate-500 font-medium">Tanggal perjalanan</span>
+                    <span id="accSummary-tanggal" class="font-bold text-slate-900">Tambahkan tanggal</span>
+                </button>
+
+                <div id="accBody-tanggal" class="hidden p-5 pt-2 space-y-3 border-t border-slate-100">
+                    <div class="text-base font-bold text-slate-900">Kapan Anda menginap?</div>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 min-w-0 overflow-hidden">
+                            <label class="block text-[10px] uppercase tracking-wider text-emerald-700 font-semibold">Check-In</label>
+                            <input type="date" id="quickCheckIn" onchange="applyQuickFilterChanges()" class="w-full min-w-0 bg-transparent text-slate-900 text-xs font-semibold mt-0.5 focus:outline-none">
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 min-w-0 overflow-hidden">
+                            <label class="block text-[10px] uppercase tracking-wider text-emerald-700 font-semibold">Check-Out</label>
+                            <input type="date" id="quickCheckOut" onchange="applyQuickFilterChanges()" class="w-full min-w-0 bg-transparent text-slate-900 text-xs font-semibold mt-0.5 focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between bg-emerald-50 border border-emerald-200/70 rounded-xl px-3 py-2 text-[11px] text-emerald-800 font-medium">
+                        <span>Deteksi Otomatis:</span>
+                        <strong id="quickFilterNightBadge">2 Malam (1 Weekday, 1 Weekend)</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 3: PESERTA (Collapsed pill seperti Gambar 2, bisa diklik untuk atur jumlah tamu) -->
+            <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden transition-all">
+                <button type="button" id="accHeader-peserta" onclick="toggleSearchAccordion('peserta')" class="w-full px-5 py-4 flex items-center justify-between text-xs sm:text-sm">
+                    <span class="text-slate-500 font-medium">Peserta</span>
+                    <span id="accSummary-peserta" class="font-bold text-slate-900">Tambahkan tamu</span>
+                </button>
+
+                <div id="accBody-peserta" class="hidden p-5 pt-2 space-y-3 border-t border-slate-100">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-sm font-bold text-slate-900">Total Tamu Menginap</div>
+                            <div class="text-[11px] text-slate-500">Termasuk dewasa &amp; anak-anak</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button type="button" onclick="adjustQuickGuest(-1)" class="w-8 h-8 rounded-full border border-slate-300 text-slate-700 flex items-center justify-center font-bold hover:border-slate-900 transition">-</button>
+                            <span id="quickGuestDisplay" class="text-sm font-bold text-slate-900 min-w-[54px] text-center">4 Tamu</span>
+                            <button type="button" onclick="adjustQuickGuest(1)" class="w-8 h-8 rounded-full border border-slate-300 text-slate-700 flex items-center justify-center font-bold hover:border-slate-900 transition">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden select for state compatibility -->
+            <select id="quickAreaSelect" class="hidden">
+                <option value="all">Semua Area</option>
+                <option value="Oro-Oro Ombo">Oro-Oro Ombo</option>
+                <option value="Songgoriti">Songgoriti</option>
+                <option value="Bumiaji">Bumiaji</option>
+                <option value="Coban Rais">Coban Rais</option>
+            </select>
+        </div>
+
+        <!-- Bottom Action Bar (Persis Gambar 2: "Hapus semua" di kiri & Tombol "Cari" di kanan) -->
+        <div class="bg-white border-t border-slate-200 px-5 py-3.5">
+            <div class="max-w-lg mx-auto flex items-center justify-between">
+                <button type="button" onclick="resetPopupSearchAll()" class="text-xs sm:text-sm font-semibold text-slate-800 underline hover:text-slate-950 transition">
+                    Hapus semua
+                </button>
+                <button type="button" onclick="submitPopupSearch()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-md transition active:scale-95">
+                    <i class="ph-bold ph-magnifying-glass text-sm"></i>
+                    <span>Cari</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data 6 Unit milik 1 Host (Hengkyy Stays) yang tersebar di beberapa sub-area dalam 1 Kota (Kota Wisata Batu)
+        // Dilengkapi titik koordinat GPS (Latitude, Longitude) & URL Google Maps untuk setiap unit
+        const UNITS_DATA = [
+            {
+                id: 'villa-forest',
+                name: 'Royal Forest Private Pool Villa',
+                category: 'Private Pool',
+                subArea: 'Oro-Oro Ombo',
+                address: 'Jl. Raya Oro-Oro Ombo, Temas, Kec. Batu, Kota Batu',
+                lat: -7.8894,
+                lng: 112.5298,
+                coordinates: '-7.8894, 112.5298',
+                googleMapsUrl: 'https://www.google.com/maps?q=-7.8894,112.5298',
+                distanceInfo: '3 menit ke Jatim Park 2 & Eco Green Park',
+                rating: 4.99,
+                reviewsCount: 184,
+                guestFavorite: true,
+                capacity: 4,
+                maxCapacity: 6,
+                extraGuestFee: 200000,
+                beds: '2 Kamar Tidur • 2 King Bed • Private Heated Pool',
+                size: '165 m²',
+                weekdayRate: 1450000,
+                weekendRate: 1950000,
+                badge: 'Pilihan Tamu ★ 4.99',
+                image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1000&q=80',
+                subImages: [
+                    'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80'
+                ],
+                features: ['Private Heated Pool', 'Smart TV 65" + Netflix', 'Floating Breakfast Ready', 'Dapur Lengkap & Bar', 'Wi-Fi 150 Mbps', 'Smart Door Lock']
+            },
+            {
+                id: 'villa-cliff',
+                name: 'Sovereign Cliff Glass House',
+                category: 'Large Group',
+                subArea: 'Songgoriti',
+                address: 'Jl. Lembah Pinus Songgoriti, Songgokerto, Kec. Batu, Kota Batu',
+                lat: -7.8672,
+                lng: 112.4915,
+                coordinates: '-7.8672, 112.4915',
+                googleMapsUrl: 'https://www.google.com/maps?q=-7.8672,112.4915',
+                distanceInfo: '5 menit ke Pemandian Air Panas Songgoriti & Pasar Parkiran',
+                rating: 4.97,
+                reviewsCount: 142,
+                guestFavorite: true,
+                capacity: 6,
+                maxCapacity: 12,
+                extraGuestFee: 225000,
+                beds: '3 Kamar Tidur • 4 Queen Bed • Jacuzzi & BBQ Deck',
+                size: '240 m²',
+                weekdayRate: 2350000,
+                weekendRate: 2950000,
+                badge: 'Favorit Rombongan',
+                image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1000&q=80',
+                subImages: [
+                    'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=80'
+                ],
+                features: ['3 Kamar Tidur Ensuite', 'Outdoor Warm Jacuzzi', 'Private Kitchen & BBQ Grill', 'Panoramic City Light View', 'Karaoke Sound System', 'Garasi 3 Mobil']
+            },
+            {
+                id: 'glamping-dome',
+                name: 'Aurora Geodesic Luxury Dome',
+                category: 'Cabin & Glamping',
+                subArea: 'Bumiaji',
+                address: 'Jl. Raya Selecta - Junggo, Tulungrejo, Kec. Bumiaji, Kota Batu',
+                lat: -7.8195,
+                lng: 112.5241,
+                coordinates: '-7.8195, 112.5241',
+                googleMapsUrl: 'https://www.google.com/maps?q=-7.8195,112.5241',
+                distanceInfo: 'Dekat Kebun Apel Mandiri & Taman Rekreasi Selecta',
+                rating: 4.96,
+                reviewsCount: 118,
+                guestFavorite: true,
+                capacity: 2,
+                maxCapacity: 4,
+                extraGuestFee: 150000,
+                beds: '1 Kamar Dome • 1 King Bed • Skylight Stargazing',
+                size: '52 m²',
+                weekdayRate: 780000,
+                weekendRate: 1050000,
+                badge: 'Honeymoon Gem',
+                image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1000&q=80',
+                subImages: [
+                    'https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80'
+                ],
+                features: ['Skylight Roof Stargazing', 'Private Firepit & Marshmallow', 'En-suite Water Heater', 'Sarapan Pagi 2 Pax', 'Teras Kebun Pinus', 'Kopi Drip Lokal']
+            },
+            {
+                id: 'glamping-cabin',
+                name: 'Nordic Pine Riverfront A-Cabin',
+                category: 'Cabin & Glamping',
+                subArea: 'Bumiaji',
+                address: 'Kawasan Sungai Junggo, Kec. Bumiaji, Kota Wisata Batu',
+                lat: -7.8240,
+                lng: 112.5285,
+                coordinates: '-7.8240, 112.5285',
+                googleMapsUrl: 'https://www.google.com/maps?q=-7.8240,112.5285',
+                distanceInfo: 'Tepat di tepi aliran sungai pegunungan Junggo',
+                rating: 4.95,
+                reviewsCount: 96,
+                guestFavorite: false,
+                capacity: 4,
+                maxCapacity: 6,
+                extraGuestFee: 150000,
+                beds: '2 Loft Bed • Balkon Jaring Sungai',
+                size: '68 m²',
+                weekdayRate: 950000,
+                weekendRate: 1290000,
+                badge: 'Tepi Sungai Jernih',
+                image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1000&q=80',
+                subImages: [
+                    'https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80'
+                ],
+                features: ['Akses Privat Sungai Jernih', 'Hammock Jaring Balkon', 'Kopi & Teh Artisanal', 'Api Unggun Pribadi', 'Smart Projector Cinema', 'Pemanas Ruangan']
+            },
+            {
+                id: 'homestay-heritage',
+                name: 'Kayu Manis Workcation Villa',
+                category: 'Workcation',
+                subArea: 'Oro-Oro Ombo',
+                address: 'Jl. Sultan Agung - Abdul Gani Atas, Ngaglik, Kota Batu',
+                lat: -7.8796,
+                lng: 112.5204,
+                coordinates: '-7.8796, 112.5204',
+                googleMapsUrl: 'https://www.google.com/maps?q=-7.8796,112.5204',
+                distanceInfo: '4 menit ke Alun-Alun Kota Batu & Museum Angkut',
+                rating: 4.94,
+                reviewsCount: 64,
+                guestFavorite: false,
+                capacity: 2,
+                maxCapacity: 4,
+                extraGuestFee: 125000,
+                beds: '1 Kamar Tidur • 1 Queen Bed • Plunge Pool',
+                size: '58 m²',
+                weekdayRate: 560000,
+                weekendRate: 740000,
+                badge: 'Best Value Workcation',
+                image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=80',
+                subImages: [
+                    'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80'
+                ],
+                features: ['Dedicated Wi-Fi 200 Mbps', 'Meja Kerja Ergonomis + Monitor', 'Private Plunge Pool', 'Dapur Minimalis', 'Mesin Kopi Espresso', 'Diskon Menginap Mingguan']
+            },
+            {
+                id: 'opentrip-bromo',
+                name: 'Pine Sanctuary + Private Jeep Sunrise',
+                category: 'Plus Jeep Trip',
+                subArea: 'Coban Rais',
+                address: 'Jalur Lingkar Barat Coban Rais, Oro-Oro Ombo, Kota Batu',
+                lat: -7.9018,
+                lng: 112.5214,
+                coordinates: '-7.9018, 112.5214',
+                googleMapsUrl: 'https://www.google.com/maps?q=-7.9018,112.5214',
+                distanceInfo: 'Penjemputan Jeep 4x4 langsung dari lobi cabin',
+                rating: 4.99,
+                reviewsCount: 52,
+                guestFavorite: true,
+                capacity: 4,
+                maxCapacity: 6,
+                extraGuestFee: 275000,
+                beds: '1 Family Cabin + 1 Unit Toyota Hardtop 4x4',
+                size: 'Paket 2H1M',
+                weekdayRate: 1650000,
+                weekendRate: 1990000,
+                badge: 'Bundling Terlaris',
+                image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1000&q=80',
+                subImages: [
+                    'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80'
+                ],
+                features: ['Menginap Cabin + Jeep 4x4', 'Tiket Masuk Spot Sunrise', 'Driver Merangkap Fotografer', 'Dokumentasi Foto & Reels', 'Sarapan & Kopi Pagi', 'Bebas Antre Tiket']
+            }
+        ];
+
+        // Data Galeri Estetis
+        const GALLERY_DATA = [
+            {
+                title: 'Infinity Pool Menghadap Kabut Lembah Batu',
+                category: 'Pool & Alam',
+                desc: 'Kolam renang air hangat privat yang menyatu langsung dengan lanskap hutan pinus.',
+                image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=80'
+            },
+            {
+                title: 'Master Suite dengan Dinding Kaca 180°',
+                category: 'Interior',
+                desc: 'Bangun tidur langsung disambut cahaya matahari pagi dan panorama Gunung Panderman.',
+                image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=80'
+            },
+            {
+                title: 'Sajian Floating Breakfast Tropis',
+                category: 'Dining & Aktivitas',
+                desc: 'Pengalaman sarapan mewah di atas kolam renang pribadi yang sangat fotogenik.',
+                image: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1000&q=80'
+            },
+            {
+                title: 'Suasana Senja di Geodesic Glamping Dome',
+                category: 'Pool & Alam',
+                desc: 'Dilengkapi perapian outdoor untuk menikmati malam berbintang bersama keluarga.',
+                image: 'https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=1000&q=80'
+            },
+            {
+                title: 'Semi-Outdoor Rainshower & Bathtub Batu Alam',
+                category: 'Interior',
+                desc: 'Desain kamar mandi resort bintang lima dengan aroma terapi serai alami.',
+                image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1000&q=80'
+            },
+            {
+                title: 'Ekspedisi Sunrise Jeep & Api Unggun BBQ',
+                category: 'Dining & Aktivitas',
+                desc: 'Pilihan paket favorit untuk rombongan sahabat, keluarga, maupun open trip.',
+                image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1000&q=80'
+            }
+        ];
+
+        let activeCategory = 'all';
+        let activeSubArea = 'all';
+        let activeRatePreview = 'both';
+        let activeGalleryFilter = 'all';
+        let showWishlistOnly = false;
+        let currentModalUnitId = null;
+        const wishlistedUnits = new Set(['villa-forest', 'glamping-dome']);
+
+        // Helper Format Rupiah
+        function formatIDR(num) {
+            return 'Rp ' + Math.round(num).toLocaleString('id-ID');
+        }
+
+        // Helper Parse & Format Tanggal Lokal (Mencegah bug zona waktu UTC pada mobile)
+        function parseLocalDate(dateStr) {
+            if (!dateStr) return new Date();
+            const parts = dateStr.split('-').map(Number);
+            return new Date(parts[0], parts[1] - 1, parts[2], 12, 0, 0);
+        }
+
+        function formatLocalISO(d) {
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Hitung rincian malam dari tanggal aktif untuk dipakai di Katalog (Airbnb Total Price Mode) & Kalkulator
+        function getActiveDateBreakdown() {
+            const ciStr = document.getElementById('calcCheckIn')?.value;
+            const coStr = document.getElementById('calcCheckOut')?.value;
+            if (!ciStr || !coStr) {
+                return { weekdayNights: 1, weekendNights: 1, totalNights: 2 };
+            }
+            const start = parseLocalDate(ciStr);
+            const end = parseLocalDate(coStr);
+            let weekdayNights = 0;
+            let weekendNights = 0;
+            const cur = new Date(start);
+            let safety = 0;
+            while (cur < end && safety < 60) {
+                const d = cur.getDay();
+                if (d === 0 || d === 5 || d === 6) weekendNights++;
+                else weekdayNights++;
+                cur.setDate(cur.getDate() + 1);
+                safety++;
+            }
+            const totalNights = Math.max(1, weekdayNights + weekendNights);
+            return { weekdayNights, weekendNights, totalNights };
+        }
+
+        // Render Katalog Unit Gaya Airbnb
+        function renderCatalog() {
+            const grid = document.getElementById('unitCatalogGrid');
+            const showTotalToggle = document.getElementById('showTotalStayToggle')?.checked;
+            const { weekdayNights, weekendNights, totalNights } = getActiveDateBreakdown();
+
+            const toggleSub = document.getElementById('toggleStaySubtitle');
+            if (toggleSub) {
+                toggleSub.textContent = `${totalNights} malam (${weekdayNights} Weekday, ${weekendNights} Weekend) • 0% biaya aplikasi`;
+            }
+
+            let filtered = UNITS_DATA.filter(u => {
+                const matchCat = activeCategory === 'all' || u.category === activeCategory;
+                const matchArea = activeSubArea === 'all' || u.subArea === activeSubArea;
+                const matchWish = !showWishlistOnly || wishlistedUnits.has(u.id);
+                return matchCat && matchArea && matchWish;
+            });
+
+            const statusEl = document.getElementById('catalogStatusText');
+            if (statusEl) {
+                const areaLabel = activeSubArea === 'all' ? 'seluruh Kota Wisata Batu' : `kawasan ${activeSubArea}, Kota Batu`;
+                statusEl.innerHTML = `Menampilkan <strong class="text-white">${filtered.length} dari ${UNITS_DATA.length} unit milik Hengkyy Stays</strong> di ${areaLabel}`;
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full glass-panel rounded-3xl p-10 text-center space-y-3">
+                        <i class="ph-duotone ph-house-simple text-4xl text-emerald-300"></i>
+                        <h3 class="font-serif text-2xl text-white">Tidak ada unit pada filter ini</h3>
+                        <p class="text-xs text-slate-300">Coba tampilkan seluruh area Kota Batu atau matikan filter Favorit.</p>
+                        <button onclick="resetAllCatalogFilters()" class="px-4 py-2 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs">Tampilkan Semua 6 Unit Host</button>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(unit => {
+                const isLiked = wishlistedUnits.has(unit.id);
+                const stayTotalCost = (weekdayNights * unit.weekdayRate) + (weekendNights * unit.weekendRate);
+
+                let rateBoxHtml = '';
+                if (showTotalToggle) {
+                    rateBoxHtml = `
+                        <div class="p-3 rounded-xl bg-emerald-950/75 border border-emerald-400/40 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-emerald-300 block font-semibold">Total ${totalNights} Malam (${weekdayNights} WD + ${weekendNights} WE)</span>
+                                <span class="text-base sm:text-lg font-bold text-white underline decoration-emerald-400/60">${formatIDR(stayTotalCost)}</span>
+                            </div>
+                            <span class="text-[10px] px-2 py-1 rounded-lg bg-emerald-500/20 text-emerald-200 font-medium">0% Fee OTA</span>
+                        </div>
+                    `;
+                } else if (activeRatePreview === 'both') {
+                    rateBoxHtml = `
+                        <div class="grid grid-cols-2 gap-2 p-2.5 rounded-xl bg-slate-950/65 border border-white/10">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-emerald-300 block font-semibold">Weekday (Sen–Kam)</span>
+                                <span class="text-sm sm:text-base font-bold text-white">${formatIDR(unit.weekdayRate)}</span>
+                                <span class="text-[10px] text-slate-400">/malam</span>
+                            </div>
+                            <div class="border-l border-white/10 pl-2.5">
+                                <span class="text-[10px] uppercase tracking-wider text-amber-300 block font-semibold">Weekend (Jum–Min)</span>
+                                <span class="text-sm sm:text-base font-bold text-amber-300">${formatIDR(unit.weekendRate)}</span>
+                                <span class="text-[10px] text-slate-400">/malam</span>
+                            </div>
+                        </div>
+                    `;
+                } else if (activeRatePreview === 'weekday') {
+                    rateBoxHtml = `
+                        <div class="p-3 rounded-xl bg-emerald-950/70 border border-emerald-400/30 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-emerald-300 block font-semibold">Tarif Weekday (Senin–Kamis)</span>
+                                <span class="text-lg font-bold text-white">${formatIDR(unit.weekdayRate)} <small class="text-xs font-normal text-slate-300">/ malam</small></span>
+                            </div>
+                            <span class="text-[11px] px-2 py-1 rounded bg-emerald-500/20 text-emerald-200">Hemat ${formatIDR(unit.weekendRate - unit.weekdayRate)}</span>
+                        </div>
+                    `;
+                } else {
+                    rateBoxHtml = `
+                        <div class="p-3 rounded-xl bg-amber-950/50 border border-amber-400/30 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-amber-300 block font-semibold">Tarif Weekend (Jumat–Minggu)</span>
+                                <span class="text-lg font-bold text-amber-300">${formatIDR(unit.weekendRate)} <small class="text-xs font-normal text-slate-300">/ malam</small></span>
+                            </div>
+                            <span class="text-[11px] px-2 py-1 rounded bg-amber-500/20 text-amber-200">High Demand</span>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <article class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between group">
+                        <div>
+                            <!-- Airbnb Image Header with Guest Favorite & Heart Wishlist -->
+                            <div class="img-overlay-dark relative h-60 overflow-hidden cursor-pointer" onclick="openUnitDetailModal('${unit.id}')">
+                                <img src="${unit.image}"
+                                     onerror="this.src='https://placehold.co/800x500/06291e/a7f3d0?text=${encodeURIComponent(unit.name)}'"
+                                     alt="${unit.name}"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/15 to-transparent"></div>
+
+                                <!-- Top Left Airbnb Guest Favorite Pill -->
+                                <div class="absolute top-3.5 left-3.5 flex items-center gap-1.5">
+                                    ${unit.guestFavorite ? `
+                                        <span class="px-3 py-1 rounded-full bg-white/95 text-slate-950 text-[11px] font-bold shadow-md flex items-center gap-1">
+                                            <i class="ph-fill ph-trophy text-amber-500"></i> Pilihan Tamu
+                                        </span>
+                                    ` : `
+                                        <span class="px-3 py-1 rounded-full bg-white/90 text-emerald-800 text-[11px] font-semibold shadow-sm">
+                                            ${unit.category}
+                                        </span>
+                                    `}
+                                </div>
+
+                                <!-- Top Right Airbnb Heart Button -->
+                                <button type="button" onclick="event.stopPropagation(); toggleWishlist('${unit.id}')"
+                                        class="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-white/85 hover:bg-white border border-slate-200 flex items-center justify-center transition transform active:scale-90 shadow-sm"
+                                        title="Simpan ke Favorit">
+                                    <i class="${isLiked ? 'ph-fill text-rose-500' : 'ph-bold text-slate-700'} ph-heart text-lg"></i>
+                                </button>
+
+                                <!-- Bottom Image Sub-Location & Capacity -->
+                                <div class="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between text-xs text-slate-200">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-slate-900/75 text-emerald-300 font-medium">
+                                        <i class="ph-fill ph-map-pin"></i> ${unit.subArea}, Batu
+                                    </span>
+                                    <span class="text-[11px] text-white font-medium drop-shadow">
+                                        <i class="ph-fill ph-users text-emerald-300"></i> ${unit.capacity}–${unit.maxCapacity} Tamu • ${unit.size}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Card Body (Clean & Concise for Mobile & Desktop) -->
+                            <div class="p-4 sm:p-5 space-y-3">
+                                <div>
+                                    <div class="flex items-start justify-between gap-2">
+                                        <h3 onclick="openUnitDetailModal('${unit.id}')" class="font-serif text-lg sm:text-xl font-semibold text-white leading-snug hover:text-emerald-300 cursor-pointer transition line-clamp-1">${unit.name}</h3>
+                                        <span class="shrink-0 inline-flex items-center gap-1 text-xs font-bold text-white bg-white/5 px-2 py-0.5 rounded-lg border border-white/10 tabular-nums">
+                                            <i class="ph-fill ph-star text-amber-400"></i> ${unit.rating}
+                                        </span>
+                                    </div>
+                                    <div class="text-xs text-slate-400 mt-1 flex items-center justify-between gap-2">
+                                        <span class="truncate">${unit.beds}</span>
+                                        <a href="${unit.googleMapsUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="text-emerald-300 hover:underline font-semibold inline-flex items-center gap-0.5 shrink-0">
+                                            <span>Maps</span>
+                                            <i class="ph-bold ph-arrow-up-right text-[10px]"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                ${rateBoxHtml}
+
+                                <div class="flex flex-wrap gap-1.5">
+                                    ${unit.features.slice(0, 3).map(f => `
+                                        <span class="text-[11px] px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300">${f}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dual Action Buttons: Airbnb Detail Preview + Direct Calculator -->
+                        <div class="p-4 sm:p-5 pt-0 grid grid-cols-5 gap-2">
+                            <button onclick="openUnitDetailModal('${unit.id}')" class="col-span-2 py-2.5 px-3 rounded-xl bg-white/5 hover:bg-white/15 text-slate-200 border border-white/15 font-medium text-xs flex items-center justify-center gap-1.5 transition">
+                                <span>Detail</span>
+                            </button>
+                            <button onclick="selectUnitAndScroll('${unit.id}')" class="col-span-3 py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-sm">
+                                <i class="ph-bold ph-calculator"></i>
+                                <span>Pesan Sekarang</span>
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        function filterCategory(cat) {
+            activeCategory = cat;
+            showWishlistOnly = false;
+            document.querySelectorAll('.cat-pill').forEach(btn => {
+                if (btn.id === 'cat-' + cat) {
+                    btn.className = 'cat-pill snap-start-item shrink-0 flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-emerald-600 text-white font-semibold text-xs transition';
+                } else {
+                    btn.className = 'cat-pill snap-start-item shrink-0 flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-medium transition';
+                }
+            });
+            renderCatalog();
+        }
+
+        function filterBySubArea(area) {
+            activeSubArea = area;
+            showWishlistOnly = false;
+            const heroArea = document.getElementById('heroAreaSelect');
+            if (heroArea && heroArea.value !== area) {
+                heroArea.value = area;
+            }
+            const pillCity = document.getElementById('pillCityText');
+            if (pillCity) {
+                pillCity.textContent = area === 'all' ? 'Semua Area di Kota Batu' : `Area ${area}, Batu`;
+            }
+            renderCatalog();
+            document.getElementById('katalog').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleWishlist(unitId) {
+            if (wishlistedUnits.has(unitId)) {
+                wishlistedUnits.delete(unitId);
+            } else {
+                wishlistedUnits.add(unitId);
+            }
+            document.getElementById('wishlistCountBadge').textContent = wishlistedUnits.size;
+            renderCatalog();
+        }
+
+        function filterWishlistOnly() {
+            showWishlistOnly = !showWishlistOnly;
+            const btn = document.getElementById('wishlistNavBtn');
+            if (showWishlistOnly) {
+                btn.classList.add('border-rose-400', 'bg-rose-500/20');
+            } else {
+                btn.classList.remove('border-rose-400', 'bg-rose-500/20');
+            }
+            renderCatalog();
+            document.getElementById('katalog').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetAllCatalogFilters() {
+            activeCategory = 'all';
+            activeSubArea = 'all';
+            showWishlistOnly = false;
+            const heroArea = document.getElementById('heroAreaSelect');
+            if (heroArea) heroArea.value = 'all';
+            filterCategory('all');
+        }
+
+        // Modal Detail Unit ala Airbnb
+        function openUnitDetailModal(unitId) {
+            const unit = UNITS_DATA.find(u => u.id === unitId);
+            if (!unit) return;
+            currentModalUnitId = unit.id;
+
+            document.getElementById('modalUnitTitle').textContent = unit.name;
+            document.getElementById('modalUnitSubtitle').textContent = `${unit.subArea}, Kota Wisata Batu • ${unit.distanceInfo}`;
+            document.getElementById('modalSubAreaBadge').textContent = `Unit Milik Hengkyy Stays • ${unit.subArea}, Kota Batu`;
+            document.getElementById('modalUnitRating').textContent = unit.rating;
+            document.getElementById('modalUnitReviews').textContent = `(${unit.reviewsCount} ulasan terverifikasi)`;
+            document.getElementById('modalSpecsLine').textContent = `Kapasitas ${unit.capacity}–${unit.maxCapacity} Tamu • ${unit.beds} • Luas ${unit.size}`;
+            document.getElementById('modalLocationHighlight').textContent = `Kawasan ${unit.subArea}, Kota Wisata Batu`;
+            document.getElementById('modalDistanceText').textContent = unit.distanceInfo;
+
+            document.getElementById('modalMainImg').src = unit.image;
+            document.getElementById('modalSubImg1').src = unit.subImages?.[0] || unit.image;
+            document.getElementById('modalSubImg2').src = unit.subImages?.[1] || unit.image;
+
+            document.getElementById('modalWeekdayPrice').textContent = formatIDR(unit.weekdayRate);
+            document.getElementById('modalWeekendPrice').textContent = formatIDR(unit.weekendRate);
+
+            document.getElementById('modalFeaturesList').innerHTML = unit.features.map(f => `
+                <div class="flex items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10">
+                    <i class="ph-fill ph-check-circle text-emerald-400"></i>
+                    <span>${f}</span>
+                </div>
+            `).join('');
+
+            // Update Informasi Alamat Lokasi & Embed Peta Google Maps di Modal
+            document.getElementById('modalAddressText').textContent = unit.address;
+            document.getElementById('modalGoogleMapsBtn').href = unit.googleMapsUrl;
+            document.getElementById('modalMapIframe').src = `https://maps.google.com/maps?q=${unit.lat},${unit.lng}&hl=id&z=15&output=embed`;
+
+            const selectBtn = document.getElementById('modalSelectUnitBtn');
+            selectBtn.onclick = () => {
+                closeUnitDetailModal();
+                selectUnitAndScroll(unit.id);
+            };
+
+            const modal = document.getElementById('airbnbDetailModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function previewCityMapUnit(unitId) {
+            const unit = UNITS_DATA.find(u => u.id === unitId) || UNITS_DATA[0];
+            const label = document.getElementById('cityMapActiveLabel');
+            const link = document.getElementById('cityMapDirectLink');
+            const iframe = document.getElementById('cityMapIframe');
+
+            if (label) {
+                label.innerHTML = `Menampilkan lokasi: <strong class="text-white">${unit.name}</strong> <span class="text-slate-400">(${unit.subArea}, Kota Batu)</span>`;
+            }
+            if (link) {
+                link.href = unit.googleMapsUrl;
+            }
+            if (iframe) {
+                iframe.src = `https://maps.google.com/maps?q=${unit.lat},${unit.lng}&hl=id&z=15&output=embed`;
+            }
+
+            // Render tombol pill semua unit di atas peta tanpa badge koordinat
+            const pillsContainer = document.getElementById('cityMapUnitPills');
+            if (pillsContainer) {
+                pillsContainer.innerHTML = UNITS_DATA.map(u => {
+                    const active = u.id === unit.id;
+                    return `
+                        <button type="button" onclick="previewCityMapUnit('${u.id}')"
+                                class="shrink-0 px-3 py-1.5 rounded-xl text-[11px] font-medium transition flex items-center gap-1.5 ${active ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10'}">
+                            <i class="ph-fill ph-map-pin"></i>
+                            <span>${u.name.split(' ')[0]} ${u.name.split(' ')[1]} • ${u.subArea}</span>
+                        </button>
+                    `;
+                }).join('');
+            }
+        }
+
+        function closeUnitDetailModal() {
+            const modal = document.getElementById('airbnbDetailModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function toggleWishlistFromModal() {
+            if (!currentModalUnitId) return;
+            toggleWishlist(currentModalUnitId);
+        }
+
+        function setRatePreview(mode) {
+            activeRatePreview = mode;
+            ['both', 'weekday', 'weekend'].forEach(m => {
+                const btn = document.getElementById('rate-' + m);
+                if (!btn) return;
+                if (m === mode) {
+                    btn.className = 'px-2.5 py-1.5 rounded-lg bg-white/15 text-white font-semibold transition';
+                } else {
+                    btn.className = 'px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-white/5 transition';
+                }
+            });
+            renderCatalog();
+        }
+
+        // Render Galeri Foto Estetis
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            const items = activeGalleryFilter === 'all'
+                ? GALLERY_DATA
+                : GALLERY_DATA.filter(g => g.category === activeGalleryFilter);
+
+            grid.innerHTML = items.map((item, idx) => `
+                <div onclick="openLightbox(${idx})" class="img-overlay-dark group glass-card rounded-3xl overflow-hidden cursor-pointer relative h-72">
+                    <img src="${item.image}"
+                         onerror="this.src='https://placehold.co/800x600/06291e/a7f3d0?text=${encodeURIComponent(item.title)}'"
+                         alt="${item.title}"
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
+                    <div class="absolute top-4 left-4">
+                        <span class="px-3 py-1 rounded-full bg-white/90 text-[11px] text-emerald-800 font-semibold shadow-sm">${item.category}</span>
+                    </div>
+                    <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/85 flex items-center justify-center text-slate-800 opacity-90 group-hover:opacity-100 group-hover:scale-110 transition shadow-sm">
+                        <i class="ph-bold ph-arrows-out-simple"></i>
+                    </div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <h3 class="font-serif text-xl font-semibold text-white drop-shadow">${item.title}</h3>
+                        <p class="text-xs text-slate-200 line-clamp-2 mt-0.5">${item.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterGallery(cat) {
+            activeGalleryFilter = cat;
+            document.querySelectorAll('.gal-btn').forEach(btn => {
+                if (btn.getAttribute('data-gal') === cat) {
+                    btn.className = 'gal-btn px-3.5 py-2 rounded-lg bg-emerald-500 text-slate-950 font-semibold transition';
+                } else {
+                    btn.className = 'gal-btn px-3.5 py-2 rounded-lg text-slate-300 hover:text-white transition';
+                }
+            });
+            renderGallery();
+        }
+
+        function openLightbox(idx) {
+            const items = activeGalleryFilter === 'all'
+                ? GALLERY_DATA
+                : GALLERY_DATA.filter(g => g.category === activeGalleryFilter);
+            const item = items[idx];
+            if (!item) return;
+
+            document.getElementById('lightboxImg').src = item.image;
+            document.getElementById('lightboxBadge').textContent = item.category;
+            document.getElementById('lightboxTitle').textContent = item.title;
+            document.getElementById('lightboxDesc').textContent = item.desc;
+
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Inisialisasi Dropdown Unit & Tanggal Default (1 Malam Weekday + 1 Malam Weekend agar demo langsung terlihat jelas)
+        function initCalculatorDefaults() {
+            const calcSelect = document.getElementById('calcUnitSelect');
+
+            const optionsHtml = UNITS_DATA.map(u => `
+                <option value="${u.id}" class="bg-slate-900 text-white">${u.name} — ${u.subArea} (${formatIDR(u.weekdayRate)} / ${formatIDR(u.weekendRate)})</option>
+            `).join('');
+
+            calcSelect.innerHTML = optionsHtml;
+
+            // Cari hari Kamis terdekat agar default selalu menampilkan 1 Malam Weekday (Kamis) + 1 Malam Weekend (Jumat)
+            const today = new Date();
+            const checkInDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0);
+            const dayOfWeek = checkInDate.getDay();
+            const daysUntilThursday = (4 - dayOfWeek + 7) % 7 || 7;
+            checkInDate.setDate(checkInDate.getDate() + daysUntilThursday);
+
+            const checkOutDate = new Date(checkInDate);
+            checkOutDate.setDate(checkInDate.getDate() + 2);
+
+            const ciISO = formatLocalISO(checkInDate);
+            const coISO = formatLocalISO(checkOutDate);
+
+            document.getElementById('calcCheckIn').value = ciISO;
+            document.getElementById('calcCheckOut').value = coISO;
+            document.getElementById('heroCheckIn').value = ciISO;
+            document.getElementById('heroCheckOut').value = coISO;
+
+            recalculateStay();
+        }
+
+        function syncGuestFilterFromHero(guestVal) {
+            const gCount = parseInt(guestVal, 10) || 4;
+            document.getElementById('calcGuestCount').value = gCount;
+            recalculateStay();
+        }
+
+        function syncDatesFromHero() {
+            const ci = document.getElementById('heroCheckIn').value;
+            const co = document.getElementById('heroCheckOut').value;
+            if (ci) document.getElementById('calcCheckIn').value = ci;
+            if (co) document.getElementById('calcCheckOut').value = co;
+            handleDateChange();
+        }
+
+        function selectUnitAndScroll(unitId) {
+            document.getElementById('calcUnitSelect').value = unitId;
+            recalculateStay();
+            document.getElementById('kalkulator').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function adjustCount(inputId, delta, minVal, maxVal) {
+            const el = document.getElementById(inputId);
+            let val = parseInt(el.value, 10) || minVal;
+            val = Math.max(minVal, Math.min(maxVal, val + delta));
+            el.value = val;
+            recalculateStay();
+        }
+
+        function handleDateChange() {
+            const ciInput = document.getElementById('calcCheckIn');
+            const coInput = document.getElementById('calcCheckOut');
+
+            const ci = parseLocalDate(ciInput.value);
+            let co = parseLocalDate(coInput.value);
+
+            if (co <= ci) {
+                co = new Date(ci);
+                co.setDate(ci.getDate() + 1);
+                coInput.value = formatLocalISO(co);
+            }
+
+            document.getElementById('heroCheckIn').value = ciInput.value;
+            document.getElementById('heroCheckOut').value = coInput.value;
+            recalculateStay();
+        }
+
+        // Fungsi Inti: Menghitung Malam Weekday vs Weekend secara Otomatis
+        function recalculateStay() {
+            const unitId = document.getElementById('calcUnitSelect').value;
+            const unit = UNITS_DATA.find(u => u.id === unitId) || UNITS_DATA[0];
+            const roomCount = parseInt(document.getElementById('calcRoomCount').value, 10) || 1;
+            const guestCount = parseInt(document.getElementById('calcGuestCount').value, 10) || 2;
+
+            // Update info spesifikasi unit
+            document.getElementById('selectedUnitBadge').textContent = unit.category;
+            document.getElementById('summaryUnitTitle').textContent = unit.name;
+            document.getElementById('unitQuickSpecs').innerHTML = `
+                <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 min-w-0">
+                    <span class="text-slate-400 text-[11px] block truncate">Tarif Weekday</span>
+                    <strong class="text-emerald-300 text-xs sm:text-sm whitespace-nowrap block mt-0.5">${formatIDR(unit.weekdayRate)}<span class="text-[10px] font-normal text-slate-400">/mlm</span></strong>
+                </div>
+                <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 min-w-0">
+                    <span class="text-slate-400 text-[11px] block truncate">Tarif Weekend</span>
+                    <strong class="text-amber-300 text-xs sm:text-sm whitespace-nowrap block mt-0.5">${formatIDR(unit.weekendRate)}<span class="text-[10px] font-normal text-slate-400">/mlm</span></strong>
+                </div>
+                <div class="col-span-2 sm:col-span-1 p-2.5 rounded-xl bg-white/5 border border-white/5 flex sm:block items-center justify-between gap-2 min-w-0">
+                    <span class="text-slate-400 text-[11px] block">Lokasi Unit</span>
+                    <a href="${unit.googleMapsUrl}" target="_blank" rel="noopener noreferrer" class="text-emerald-300 hover:underline font-bold text-xs flex items-center gap-1 whitespace-nowrap mt-0 sm:mt-0.5">
+                        <span>Buka Google Maps</span>
+                        <i class="ph-bold ph-arrow-square-out shrink-0"></i>
+                    </a>
+                </div>
+            `;
+
+            // Iterasi setiap malam dari Check-In ke Check-Out
+            const ciStr = document.getElementById('calcCheckIn').value;
+            const coStr = document.getElementById('calcCheckOut').value;
+            const start = parseLocalDate(ciStr);
+            const end = parseLocalDate(coStr);
+
+            const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            let weekdayNights = 0;
+            let weekendNights = 0;
+            let pillsHtml = '';
+
+            const cur = new Date(start);
+            let safetyCounter = 0;
+            while (cur < end && safetyCounter < 60) {
+                const dayIndex = cur.getDay(); // 0=Minggu, 5=Jumat, 6=Sabtu
+                const isWeekend = (dayIndex === 0 || dayIndex === 5 || dayIndex === 6);
+                const dateFormatted = cur.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+
+                if (isWeekend) {
+                    weekendNights++;
+                    pillsHtml += `
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/20 border border-amber-400/35 text-amber-200 text-xs">
+                            <i class="ph-fill ph-sparkle text-amber-300"></i>
+                            <span>${dayNames[dayIndex]}, ${dateFormatted} (Weekend)</span>
+                        </span>
+                    `;
+                } else {
+                    weekdayNights++;
+                    pillsHtml += `
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-400/30 text-emerald-200 text-xs">
+                            <i class="ph-fill ph-moon text-emerald-300"></i>
+                            <span>${dayNames[dayIndex]}, ${dateFormatted} (Weekday)</span>
+                        </span>
+                    `;
+                }
+
+                cur.setDate(cur.getDate() + 1);
+                safetyCounter++;
+            }
+
+            const totalNights = Math.max(1, weekdayNights + weekendNights);
+            document.getElementById('summaryTotalNights').textContent = `${totalNights} Malam`;
+            document.getElementById('nightPillsContainer').innerHTML = pillsHtml;
+
+            // Update Airbnb Top Pill Summary (Desktop & Mobile) & Re-render Catalog
+            const pillDateEl = document.getElementById('pillDateSummary');
+            if (pillDateEl) {
+                pillDateEl.textContent = `${totalNights} Malam (${weekdayNights} WD, ${weekendNights} WE)`;
+            }
+            const pillGuestEl = document.getElementById('pillGuestSummary');
+            if (pillGuestEl) {
+                pillGuestEl.textContent = `${guestCount} Tamu • 6 Unit di Batu`;
+            }
+
+            // Update Ringkasan Pill Pencarian & Accordion Modal (Persis Gambar 1 & Gambar 2)
+            const shortIn = start.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+            const shortOut = end.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+            const areaDisplay = activeSubArea === 'all' ? 'Semua Area Batu' : `${activeSubArea}, Batu`;
+
+            const accLoc = document.getElementById('accSummary-lokasi');
+            const accDate = document.getElementById('accSummary-tanggal');
+            const accGuest = document.getElementById('accSummary-peserta');
+            const quickNightBadge = document.getElementById('quickFilterNightBadge');
+
+            if (accLoc) accLoc.textContent = areaDisplay;
+            if (accDate) accDate.textContent = `${shortIn} – ${shortOut} (${totalNights} mlm)`;
+            if (accGuest) accGuest.textContent = `${guestCount} Tamu`;
+            if (quickNightBadge) {
+                quickNightBadge.textContent = `${totalNights} Malam (${weekdayNights} Weekday, ${weekendNights} Weekend)`;
+            }
+
+            // Update teks di Hero Quick Pill
+            const hArea = document.getElementById('heroQuickAreaText');
+            const hDate = document.getElementById('heroQuickDateText');
+            const hGuest = document.getElementById('heroQuickGuestText');
+            if (hArea) hArea.textContent = areaDisplay;
+            if (hDate) hDate.textContent = `${shortIn}–${shortOut} (${totalNights} Mlm)`;
+            if (hGuest) hGuest.textContent = `${guestCount} Tamu`;
+
+            renderCatalog();
+
+            // Hitung Biaya Kamar
+            const weekdayTotal = weekdayNights * unit.weekdayRate * roomCount;
+            const weekendTotal = weekendNights * unit.weekendRate * roomCount;
+
+            document.getElementById('labelWeekdayRow').textContent = `Tarif Weekday (${weekdayNights} mlm × ${roomCount} unit)`;
+            document.getElementById('valWeekdayRow').textContent = formatIDR(weekdayTotal);
+
+            document.getElementById('labelWeekendRow').textContent = `Tarif Weekend (${weekendNights} mlm × ${roomCount} unit)`;
+            document.getElementById('valWeekendRow').textContent = formatIDR(weekendTotal);
+
+            // Hitung Extra Guest bila melebihi kapasitas standar
+            const includedCapacity = unit.capacity * roomCount;
+            const extraGuests = Math.max(0, guestCount - includedCapacity);
+            const extraGuestCost = extraGuests * unit.extraGuestFee * totalNights;
+
+            const rowExtraGuest = document.getElementById('rowExtraGuest');
+            if (extraGuests > 0) {
+                rowExtraGuest.classList.remove('hidden');
+                rowExtraGuest.classList.add('flex');
+                document.getElementById('labelExtraGuest').textContent = `Tambahan ${extraGuests} Tamu × ${totalNights} mlm`;
+                document.getElementById('valExtraGuest').textContent = formatIDR(extraGuestCost);
+            } else {
+                rowExtraGuest.classList.add('hidden');
+                rowExtraGuest.classList.remove('flex');
+            }
+
+            // Hitung Add-ons
+            let addonsTotal = 0;
+            const selectedAddonsList = [];
+
+            if (document.getElementById('addonExtraBed').checked) {
+                const cost = 250000 * totalNights;
+                addonsTotal += cost;
+                selectedAddonsList.push(`Extra Bed (${totalNights} mlm)`);
+            }
+            if (document.getElementById('addonFloatingBF').checked) {
+                addonsTotal += 350000;
+                selectedAddonsList.push('Floating Breakfast Tray');
+            }
+            if (document.getElementById('addonBBQ').checked) {
+                addonsTotal += 450000;
+                selectedAddonsList.push('Private Grill & BBQ Set');
+            }
+            if (document.getElementById('addonJeep').checked) {
+                addonsTotal += 650000;
+                selectedAddonsList.push('Private Jeep Sunrise Tour');
+            }
+
+            document.getElementById('valAddons').textContent = formatIDR(addonsTotal);
+
+            // Subtotal & Promo Code
+            const subtotal = weekdayTotal + weekendTotal + extraGuestCost + addonsTotal;
+            const promoInput = (document.getElementById('promoCode').value || '').trim().toUpperCase();
+            let discount = 0;
+
+            const rowDiscount = document.getElementById('rowDiscount');
+            if (promoInput === 'STAYCATION10' || promoInput === 'DEMOPT10') {
+                discount = Math.round(subtotal * 0.10);
+                rowDiscount.classList.remove('hidden');
+                rowDiscount.classList.add('flex');
+                document.getElementById('discountCodeLabel').textContent = promoInput + ' -10%';
+                document.getElementById('valDiscount').textContent = '- ' + formatIDR(discount);
+            } else {
+                rowDiscount.classList.add('hidden');
+                rowDiscount.classList.remove('flex');
+            }
+
+            const grandTotal = subtotal - discount;
+            const dpAmount = Math.round(grandTotal * 0.5);
+
+            document.getElementById('valGrandTotal').textContent = formatIDR(grandTotal);
+            document.getElementById('valDpAmount').textContent = formatIDR(dpAmount);
+
+            // Susun Teks WhatsApp Otomatis
+            const guestName = document.getElementById('guestName').value.trim() || 'Calon Tamu';
+            const guestNotes = document.getElementById('guestNotes').value.trim() || '-';
+            const ciReadable = start.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            const coReadable = end.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+            const waMessage = [
+                `Halo Admin *Hengkyy Stays Batu*, saya ingin konfirmasi ketersediaan & estimasi menginap berikut:`,
+                ``,
+                `*DATA PEMESAN*`,
+                `• Nama: ${guestName}`,
+                `• Unit Pilihan: ${unit.name} (${unit.subArea}, Kota Batu)`,
+                `• Lokasi: ${unit.address}`,
+                `• Google Maps: ${unit.googleMapsUrl}`,
+                `• Jumlah Unit: ${roomCount} Unit (${guestCount} Tamu)`,
+                ``,
+                `*JADWAL MENGINAP (${totalNights} Malam)*`,
+                `• Check-In: ${ciReadable}`,
+                `• Check-Out: ${coReadable}`,
+                `• Rincian Kalender: ${weekdayNights} Malam Weekday & ${weekendNights} Malam Weekend`,
+                ``,
+                `*RINCIAN ESTIMASI BIAYA (0% KOMISI OTA)*`,
+                `• Weekday (${weekdayNights} mlm): ${formatIDR(weekdayTotal)}`,
+                `• Weekend (${weekendNights} mlm): ${formatIDR(weekendTotal)}`,
+                extraGuests > 0 ? `• Extra Guest (${extraGuests} org): ${formatIDR(extraGuestCost)}` : null,
+                selectedAddonsList.length > 0 ? `• Add-Ons (${selectedAddonsList.join(', ')}): ${formatIDR(addonsTotal)}` : null,
+                discount > 0 ? `• Voucher Promo (${promoInput}): -${formatIDR(discount)}` : null,
+                `*TOTAL ESTIMASI: ${formatIDR(grandTotal)}*`,
+                `• Opsi DP 50%: ${formatIDR(dpAmount)}`,
+                ``,
+                `*Catatan Tambahan:* ${guestNotes}`,
+                `Mohon info ketersediaan unit di tanggal tersebut. Terima kasih!`
+            ].filter(Boolean).join('\n');
+
+            document.getElementById('waMessagePreview').textContent = waMessage;
+        }
+
+        function sendToWhatsApp() {
+            const rawPhone = document.getElementById('adminWaNumber').value.replace(/[^0-9]/g, '') || '6281234567890';
+            const message = document.getElementById('waMessagePreview').textContent;
+            const waUrl = `https://wa.me/${rawPhone}?text=${encodeURIComponent(message)}`;
+            window.open(waUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        function copyWhatsAppText() {
+            const text = document.getElementById('waMessagePreview').textContent;
+            const tempArea = document.createElement('textarea');
+            tempArea.value = text;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempArea);
+
+            const label = document.getElementById('copyBtnLabel');
+            label.textContent = 'Berhasil Disalin!';
+            setTimeout(() => {
+                label.textContent = 'Salin Teks';
+            }, 2000);
+        }
+
+        // Kontrol Modal Presentasi PT
+        function openPitchModal() {
+            const modal = document.getElementById('pitchModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closePitchModal() {
+            const modal = document.getElementById('pitchModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function updateSubdomainLabel() {
+            const val = document.getElementById('customPtDomainInput').value.trim() || 'demo-stay.adexidn.com';
+            document.getElementById('subdomainText').textContent = val;
+            document.getElementById('footerSubdomain').textContent = val;
+            closePitchModal();
+        }
+
+        // Sinkronisasi judul area pada Pill Pencarian
+        const origFilterBySubArea = filterBySubArea;
+        filterBySubArea = function(area) {
+            const pillLabel = document.getElementById('floatingSearchPillLabel');
+            if (pillLabel) {
+                pillLabel.textContent = area === 'all' ? 'Mulai pencarian' : `${area}, Batu • Ubah pencarian`;
+            }
+            origFilterBySubArea(area);
+        };
+
+        function toggleSearchAccordion(section) {
+            const sections = ['lokasi', 'tanggal', 'peserta'];
+            sections.forEach(sec => {
+                const header = document.getElementById('accHeader-' + sec);
+                const body = document.getElementById('accBody-' + sec);
+                if (!header || !body) return;
+
+                if (sec === section) {
+                    body.classList.remove('hidden');
+                    if (sec === 'lokasi') {
+                        header.classList.add('hidden');
+                        header.classList.remove('flex');
+                    }
+                } else {
+                    body.classList.add('hidden');
+                    header.classList.remove('hidden');
+                    header.classList.add('flex');
+                }
+            });
+        }
+
+        function switchModalTopTab(tab) {
+            ['homes', 'trip', 'services'].forEach(t => {
+                const btn = document.getElementById('modalTab-' + t);
+                if (!btn) return;
+                if (t === tab) {
+                    btn.className = 'flex flex-col items-center gap-1 pb-1.5 border-b-2 border-slate-900 text-slate-900 transition';
+                } else {
+                    btn.className = 'flex flex-col items-center gap-1 pb-1.5 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition';
+                }
+            });
+
+            if (tab === 'trip') {
+                selectPopupDestination('Coban Rais', 'Coban Rais (Paket Jeep)');
+            } else if (tab === 'services') {
+                closeQuickFilterModal();
+                document.getElementById('kalkulator').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function filterSuggestedDestinations(query) {
+            const q = (query || '').toLowerCase().trim();
+            document.querySelectorAll('.dest-item').forEach(btn => {
+                const keywords = btn.getAttribute('data-search') || '';
+                if (!q || keywords.includes(q)) {
+                    btn.classList.remove('hidden');
+                    btn.classList.add('flex');
+                } else {
+                    btn.classList.add('hidden');
+                    btn.classList.remove('flex');
+                }
+            });
+        }
+
+        function selectPopupDestination(areaVal, displayLabel) {
+            document.getElementById('quickAreaSelect').value = areaVal;
+            const accLoc = document.getElementById('accSummary-lokasi');
+            if (accLoc) accLoc.textContent = displayLabel;
+            applyQuickFilterChanges();
+            // Otomatis buka bagian Tanggal Perjalanan setelah memilih Lokasi (persis UX Airbnb)
+            toggleSearchAccordion('tanggal');
+        }
+
+        function openQuickFilterModal(defaultTab = 'lokasi') {
+            document.getElementById('quickAreaSelect').value = activeSubArea;
+            document.getElementById('quickCheckIn').value = document.getElementById('calcCheckIn').value;
+            document.getElementById('quickCheckOut').value = document.getElementById('calcCheckOut').value;
+            const gCount = parseInt(document.getElementById('calcGuestCount').value, 10) || 4;
+            document.getElementById('quickGuestDisplay').textContent = `${gCount} Tamu`;
+
+            toggleSearchAccordion(defaultTab);
+
+            const modal = document.getElementById('quickFilterModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeQuickFilterModal() {
+            const modal = document.getElementById('quickFilterModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function adjustQuickGuest(delta) {
+            const calcGuest = document.getElementById('calcGuestCount');
+            let val = (parseInt(calcGuest.value, 10) || 4) + delta;
+            val = Math.max(1, Math.min(30, val));
+            calcGuest.value = val;
+            document.getElementById('quickGuestDisplay').textContent = `${val} Tamu`;
+            recalculateStay();
+        }
+
+        function applyQuickFilterChanges() {
+            const areaVal = document.getElementById('quickAreaSelect').value;
+            const ciVal = document.getElementById('quickCheckIn').value;
+            const coVal = document.getElementById('quickCheckOut').value;
+
+            activeSubArea = areaVal;
+            const heroArea = document.getElementById('heroAreaSelect');
+            if (heroArea) heroArea.value = areaVal;
+
+            if (ciVal) document.getElementById('calcCheckIn').value = ciVal;
+            if (coVal) document.getElementById('calcCheckOut').value = coVal;
+
+            handleDateChange();
+        }
+
+        function resetPopupSearchAll() {
+            document.getElementById('destSearchInput').value = '';
+            filterSuggestedDestinations('');
+            document.getElementById('quickAreaSelect').value = 'all';
+            document.getElementById('calcGuestCount').value = 4;
+            document.getElementById('quickGuestDisplay').textContent = '4 Tamu';
+            activeCategory = 'all';
+            initCalculatorDefaults();
+            toggleSearchAccordion('lokasi');
+        }
+
+        function submitPopupSearch() {
+            applyQuickFilterChanges();
+            const gCount = parseInt(document.getElementById('calcGuestCount').value, 10) || 4;
+            const { totalNights } = getActiveDateBreakdown();
+            const areaShort = activeSubArea === 'all' ? 'Kota Batu' : activeSubArea;
+            const pillLabel = document.getElementById('floatingSearchPillLabel');
+            if (pillLabel) {
+                pillLabel.textContent = `${areaShort} • ${totalNights} Malam • ${gCount} Tamu`;
+            }
+            closeQuickFilterModal();
+            document.getElementById('katalog').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Jalankan saat halaman selesai dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCatalog();
+            renderGallery();
+            initCalculatorDefaults();
+            previewCityMapUnit('villa-forest');
+        });
+    </script>
+</body>
+</html>
